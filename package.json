@@ -1,0 +1,12 @@
+{
+  "name": "opticatalog",
+  "version": "1.0.0",
+  "description": "Je crée un site web qui aide les e-commerçants à améliorer automatiquement leurs fiches produits.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
