@@ -1,12 +1,20 @@
 {
   "name": "opticatalog",
   "version": "1.0.0",
-  "description": "Je crée un site web qui aide les e-commerçants à améliorer automatiquement leurs fiches produits.",
-  "main": "index.js",
+  "private": true,
+  "description": "SaaS platform to optimize e-commerce product catalogs using AI.",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "workers/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:web":    "npm run dev --workspace=apps/web",
+    "dev:api":    "npm run start:dev --workspace=apps/api",
+    "dev:worker": "npm run start:dev --workspace=workers/product-worker",
+    "db:generate": "npm run generate --workspace=packages/database",
+    "db:migrate":  "npm run migrate:dev --workspace=packages/database",
+    "db:studio":   "npm run studio --workspace=packages/database"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC"
 }
