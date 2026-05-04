@@ -10,7 +10,10 @@ build/
 .env.local
 .env.*.local
 
-# Prisma generated client
+# Prisma generated client (keep src/generated in repo or regenerate with npm run db:generate)
+packages/database/dist/
+packages/ai/dist/
+
 packages/database/node_modules/
 
 # Logs

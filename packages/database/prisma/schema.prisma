@@ -5,10 +5,9 @@ generator client {
   output   = "../src/generated/client"
 }
 
-// Connexion à PostgreSQL via une variable d'environnement
+// URL de connexion : Prisma 7 → prisma.config.mjs (CLI) + adaptateur pg à l’exécution
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ─── USER ────────────────────────────────────────────────────────────────────
@@ -79,6 +78,8 @@ model Job {
   status    JobStatus @default(PENDING)
   progress  Int       @default(0) // 0 à 100
   createdAt DateTime  @default(now())
+  // Détail d’échec (ex. erreur OpenAI / produit introuvable)
+  errorMessage String?
 
   // Clé étrangère vers Project
   projectId String

@@ -1,9 +1,14 @@
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 import { PrismaClient } from './generated/client';
 
-// Singleton : on réutilise la même connexion au lieu d'en ouvrir une nouvelle à chaque appel
-const prisma = new PrismaClient();
+/**
+ * Client Prisma ORM 7 : l’URL ne vit plus dans le schéma ; on passe un adaptateur `pg`.
+ */
+export function createPrismaClient(connectionString: string): PrismaClient {
+  const pool = new Pool({ connectionString });
+  const adapter = new PrismaPg(pool);
+  return new PrismaClient({ adapter });
+}
 
-export { prisma };
-
-// Réexporte les types générés par Prisma pour qu'ils soient disponibles depuis @opticatalog/database
 export * from './generated/client';

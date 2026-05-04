@@ -12,9 +12,14 @@
     "dev:web":    "npm run dev --workspace=apps/web",
     "dev:api":    "npm run start:dev --workspace=apps/api",
     "dev:worker": "npm run start:dev --workspace=workers/product-worker",
+    "build:db":   "npm run build --workspace=@opticatalog/database",
     "db:generate": "npm run generate --workspace=packages/database",
     "db:migrate":  "npm run migrate:dev --workspace=packages/database",
+    "db:deploy":   "npm run migrate:deploy --workspace=packages/database",
     "db:studio":   "npm run studio --workspace=packages/database"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
   },
   "license": "ISC"
 }
