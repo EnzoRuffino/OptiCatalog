@@ -12,13 +12,15 @@ datasource db {
 
 // ─── USER ────────────────────────────────────────────────────────────────────
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
+  id           String           @id @default(cuid())
+  email        String           @unique
   passwordHash String
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime         @default(now())
+  plan         SubscriptionPlan @default(STARTER)
 
   // Un utilisateur peut avoir plusieurs projets
   projects     Project[]
+  usageMonthly UsageMonthly[]
 }
 
 // ─── PROJECT ──────────────────────────────────────────────────────────────────
@@ -31,9 +33,10 @@ model Project {
   userId    String
   user      User      @relation(fields: [userId], references: [id])
 
-  // Un projet contient plusieurs produits et jobs
-  products  Product[]
-  jobs      Job[]
+  // Un projet contient plusieurs produits, pages collection et jobs
+  products         Product[]
+  collectionPages  CollectionPage[]
+  jobs             Job[]
 }
 
 // ─── PRODUCT ──────────────────────────────────────────────────────────────────
@@ -71,6 +74,31 @@ model Generation {
   product              Product  @relation(fields: [productId], references: [id])
 }
 
+// ─── COLLECTION PAGE (catégorie / page liste) ────────────────────────────────
+model CollectionPage {
+  id                  String   @id @default(cuid())
+  label               String
+  originalDescription String   @default("")
+  createdAt           DateTime @default(now())
+
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  generation CollectionGeneration?
+}
+
+model CollectionGeneration {
+  id                   String   @id @default(cuid())
+  optimizedTitle       String
+  optimizedDescription String
+  seoKeywords          String
+  seoScore             Int
+  createdAt            DateTime @default(now())
+
+  collectionPageId String          @unique
+  collectionPage   CollectionPage @relation(fields: [collectionPageId], references: [id], onDelete: Cascade)
+}
+
 // ─── JOB ──────────────────────────────────────────────────────────────────────
 // Représente un traitement asynchrone (optimisation d'un lot de produits)
 model Job {
@@ -92,4 +120,26 @@ enum JobStatus {
   PROCESSING
   DONE
   FAILED
+}
+
+
+// ─── USAGE MONTHLY ───────────────────────────────────────────────────────────
+model UsageMonthly {
+  id                 String   @id @default(cuid())
+  userId             String
+  monthKey           String   // format: YYYY-MM
+  optimizedProducts  Int      @default(0)
+  estimatedCostCents Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, monthKey])
+}
+
+enum SubscriptionPlan {
+  STARTER
+  PRO
+  SCALE
 }

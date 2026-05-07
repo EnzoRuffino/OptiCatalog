@@ -1,8 +1,13 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { getQueueToken } from '@nestjs/bullmq';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
+import {
+  OPTIMIZE_COLLECTION_QUEUE,
+  OPTIMIZE_PRODUCT_QUEUE,
+} from './../src/queue/constants';
 import { PrismaService } from './../src/prisma/prisma.service';
 
 describe('App (e2e)', () => {
@@ -18,6 +23,16 @@ describe('App (e2e)', () => {
         onModuleDestroy: jest.fn().mockResolvedValue(undefined),
         $connect: jest.fn().mockResolvedValue(undefined),
         $disconnect: jest.fn().mockResolvedValue(undefined),
+      })
+      .overrideProvider(getQueueToken(OPTIMIZE_PRODUCT_QUEUE))
+      .useValue({
+        add: jest.fn().mockResolvedValue({ id: 'test-job' }),
+        close: jest.fn().mockResolvedValue(undefined),
+      })
+      .overrideProvider(getQueueToken(OPTIMIZE_COLLECTION_QUEUE))
+      .useValue({
+        add: jest.fn().mockResolvedValue({ id: 'test-job' }),
+        close: jest.fn().mockResolvedValue(undefined),
       })
       .compile();
 

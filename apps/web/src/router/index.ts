@@ -39,6 +39,12 @@ const router = createRouter({
       component: () => import('../views/ProductDetailView.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/projects/:projectId/collections/:collectionId',
+      name: 'collection-detail',
+      component: () => import('../views/CollectionDetailView.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

@@ -1,7 +1,7 @@
 import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { OPTIMIZE_PRODUCT_QUEUE } from './constants';
+import { OPTIMIZE_COLLECTION_QUEUE, OPTIMIZE_PRODUCT_QUEUE } from './constants';
 
 @Module({
   imports: [
@@ -15,6 +15,7 @@ import { OPTIMIZE_PRODUCT_QUEUE } from './constants';
       inject: [ConfigService],
     }),
     BullModule.registerQueue({ name: OPTIMIZE_PRODUCT_QUEUE }),
+    BullModule.registerQueue({ name: OPTIMIZE_COLLECTION_QUEUE }),
   ],
   exports: [BullModule],
 })

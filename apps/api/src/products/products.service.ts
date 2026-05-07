@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { JobStatus, Prisma } from '@opticatalog/database';
 import { buildProductsExportCsv } from '@opticatalog/csv';
 import { Queue } from 'bullmq';
+import { BillingService } from '../billing/billing.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { OPTIMIZE_PRODUCT_QUEUE } from '../queue/constants';
 import { ProjectsService } from '../projects/projects.service';
@@ -21,6 +22,7 @@ export class ProductsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly projects: ProjectsService,
+    private readonly billing: BillingService,
     @InjectQueue(OPTIMIZE_PRODUCT_QUEUE)
     private readonly optimizeQueue: Queue<OptimizeProductJobPayload>,
   ) {}
@@ -68,6 +70,7 @@ export class ProductsService {
    */
   async enqueueOptimize(projectId: string, productId: string, userId: string) {
     await this.getOne(projectId, productId, userId);
+    await this.billing.assertCanEnqueueOptimization(userId);
     const job = await this.prisma.job.create({
       data: {
         projectId,

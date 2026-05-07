@@ -1,9 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply min-h-screen font-sans text-wood-900 antialiased;
+    background-color: #faf6ef;
+    background-image:
+      radial-gradient(ellipse 120% 80% at 100% -20%, rgba(196, 177, 150, 0.22), transparent 50%),
+      radial-gradient(ellipse 90% 60% at -10% 30%, rgba(156, 93, 69, 0.06), transparent 45%),
+      linear-gradient(180deg, #fdfbf7 0%, #f5ede2 38%, #efe6d8 100%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .oc-card {
+    @apply rounded-3xl border border-wood-200/90 bg-wood-25/90 shadow-soft backdrop-blur-sm;
+  }
+
+  .oc-card-solid {
+    @apply rounded-3xl border border-wood-150 bg-white/85 shadow-soft;
+  }
+
+  .oc-label {
+    @apply text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-wood-500;
+  }
+
+  .oc-input {
+    @apply mt-2 w-full rounded-xl border border-wood-200 bg-white/90 px-4 py-3 text-sm text-wood-900 shadow-inner shadow-wood-100/50 placeholder:text-wood-400 transition-colors focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-300/40;
+  }
+
+  .oc-btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-clay-600 px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-clay-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .oc-btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-wood-200 bg-white/70 px-5 py-3 text-sm font-semibold text-wood-800 shadow-sm transition hover:border-wood-300 hover:bg-wood-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wood-400 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .oc-link {
+    @apply font-medium text-clay-700 underline decoration-clay-300/70 underline-offset-4 transition hover:text-clay-800 hover:decoration-clay-500;
+  }
 }

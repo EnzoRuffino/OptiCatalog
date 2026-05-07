@@ -124,7 +124,8 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   passwordHash: 'passwordHash',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  plan: 'plan'
 };
 
 exports.Prisma.ProjectScalarFieldEnum = {
@@ -156,6 +157,24 @@ exports.Prisma.GenerationScalarFieldEnum = {
   productId: 'productId'
 };
 
+exports.Prisma.CollectionPageScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  originalDescription: 'originalDescription',
+  createdAt: 'createdAt',
+  projectId: 'projectId'
+};
+
+exports.Prisma.CollectionGenerationScalarFieldEnum = {
+  id: 'id',
+  optimizedTitle: 'optimizedTitle',
+  optimizedDescription: 'optimizedDescription',
+  seoKeywords: 'seoKeywords',
+  seoScore: 'seoScore',
+  createdAt: 'createdAt',
+  collectionPageId: 'collectionPageId'
+};
+
 exports.Prisma.JobScalarFieldEnum = {
   id: 'id',
   status: 'status',
@@ -163,6 +182,16 @@ exports.Prisma.JobScalarFieldEnum = {
   createdAt: 'createdAt',
   errorMessage: 'errorMessage',
   projectId: 'projectId'
+};
+
+exports.Prisma.UsageMonthlyScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  monthKey: 'monthKey',
+  optimizedProducts: 'optimizedProducts',
+  estimatedCostCents: 'estimatedCostCents',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -189,6 +218,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
+  STARTER: 'STARTER',
+  PRO: 'PRO',
+  SCALE: 'SCALE'
+};
+
 exports.JobStatus = exports.$Enums.JobStatus = {
   PENDING: 'PENDING',
   PROCESSING: 'PROCESSING',
@@ -201,7 +236,10 @@ exports.Prisma.ModelName = {
   Project: 'Project',
   Product: 'Product',
   Generation: 'Generation',
-  Job: 'Job'
+  CollectionPage: 'CollectionPage',
+  CollectionGeneration: 'CollectionGeneration',
+  Job: 'Job',
+  UsageMonthly: 'UsageMonthly'
 };
 
 /**

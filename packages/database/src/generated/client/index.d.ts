@@ -34,10 +34,25 @@ export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
  */
 export type Generation = $Result.DefaultSelection<Prisma.$GenerationPayload>
 /**
+ * Model CollectionPage
+ * 
+ */
+export type CollectionPage = $Result.DefaultSelection<Prisma.$CollectionPagePayload>
+/**
+ * Model CollectionGeneration
+ * 
+ */
+export type CollectionGeneration = $Result.DefaultSelection<Prisma.$CollectionGenerationPayload>
+/**
  * Model Job
  * 
  */
 export type Job = $Result.DefaultSelection<Prisma.$JobPayload>
+/**
+ * Model UsageMonthly
+ * 
+ */
+export type UsageMonthly = $Result.DefaultSelection<Prisma.$UsageMonthlyPayload>
 
 /**
  * Enums
@@ -52,11 +67,24 @@ export namespace $Enums {
 
 export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
 
+
+export const SubscriptionPlan: {
+  STARTER: 'STARTER',
+  PRO: 'PRO',
+  SCALE: 'SCALE'
+};
+
+export type SubscriptionPlan = (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan]
+
 }
 
 export type JobStatus = $Enums.JobStatus
 
 export const JobStatus: typeof $Enums.JobStatus
+
+export type SubscriptionPlan = $Enums.SubscriptionPlan
+
+export const SubscriptionPlan: typeof $Enums.SubscriptionPlan
 
 /**
  * ##  Prisma Client ʲˢ
@@ -220,6 +248,26 @@ export class PrismaClient<
   get generation(): Prisma.GenerationDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.collectionPage`: Exposes CRUD operations for the **CollectionPage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CollectionPages
+    * const collectionPages = await prisma.collectionPage.findMany()
+    * ```
+    */
+  get collectionPage(): Prisma.CollectionPageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.collectionGeneration`: Exposes CRUD operations for the **CollectionGeneration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CollectionGenerations
+    * const collectionGenerations = await prisma.collectionGeneration.findMany()
+    * ```
+    */
+  get collectionGeneration(): Prisma.CollectionGenerationDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.job`: Exposes CRUD operations for the **Job** model.
     * Example usage:
     * ```ts
@@ -228,6 +276,16 @@ export class PrismaClient<
     * ```
     */
   get job(): Prisma.JobDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.usageMonthly`: Exposes CRUD operations for the **UsageMonthly** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UsageMonthlies
+    * const usageMonthlies = await prisma.usageMonthly.findMany()
+    * ```
+    */
+  get usageMonthly(): Prisma.UsageMonthlyDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -666,7 +724,10 @@ export namespace Prisma {
     Project: 'Project',
     Product: 'Product',
     Generation: 'Generation',
-    Job: 'Job'
+    CollectionPage: 'CollectionPage',
+    CollectionGeneration: 'CollectionGeneration',
+    Job: 'Job',
+    UsageMonthly: 'UsageMonthly'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -682,7 +743,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "project" | "product" | "generation" | "job"
+      modelProps: "user" | "project" | "product" | "generation" | "collectionPage" | "collectionGeneration" | "job" | "usageMonthly"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -982,6 +1043,154 @@ export namespace Prisma {
           }
         }
       }
+      CollectionPage: {
+        payload: Prisma.$CollectionPagePayload<ExtArgs>
+        fields: Prisma.CollectionPageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CollectionPageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CollectionPageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>
+          }
+          findFirst: {
+            args: Prisma.CollectionPageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CollectionPageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>
+          }
+          findMany: {
+            args: Prisma.CollectionPageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>[]
+          }
+          create: {
+            args: Prisma.CollectionPageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>
+          }
+          createMany: {
+            args: Prisma.CollectionPageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CollectionPageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>[]
+          }
+          delete: {
+            args: Prisma.CollectionPageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>
+          }
+          update: {
+            args: Prisma.CollectionPageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>
+          }
+          deleteMany: {
+            args: Prisma.CollectionPageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CollectionPageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CollectionPageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>[]
+          }
+          upsert: {
+            args: Prisma.CollectionPageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionPagePayload>
+          }
+          aggregate: {
+            args: Prisma.CollectionPageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCollectionPage>
+          }
+          groupBy: {
+            args: Prisma.CollectionPageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CollectionPageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CollectionPageCountArgs<ExtArgs>
+            result: $Utils.Optional<CollectionPageCountAggregateOutputType> | number
+          }
+        }
+      }
+      CollectionGeneration: {
+        payload: Prisma.$CollectionGenerationPayload<ExtArgs>
+        fields: Prisma.CollectionGenerationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CollectionGenerationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CollectionGenerationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>
+          }
+          findFirst: {
+            args: Prisma.CollectionGenerationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CollectionGenerationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>
+          }
+          findMany: {
+            args: Prisma.CollectionGenerationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>[]
+          }
+          create: {
+            args: Prisma.CollectionGenerationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>
+          }
+          createMany: {
+            args: Prisma.CollectionGenerationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CollectionGenerationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>[]
+          }
+          delete: {
+            args: Prisma.CollectionGenerationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>
+          }
+          update: {
+            args: Prisma.CollectionGenerationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>
+          }
+          deleteMany: {
+            args: Prisma.CollectionGenerationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CollectionGenerationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CollectionGenerationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>[]
+          }
+          upsert: {
+            args: Prisma.CollectionGenerationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CollectionGenerationPayload>
+          }
+          aggregate: {
+            args: Prisma.CollectionGenerationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCollectionGeneration>
+          }
+          groupBy: {
+            args: Prisma.CollectionGenerationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CollectionGenerationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CollectionGenerationCountArgs<ExtArgs>
+            result: $Utils.Optional<CollectionGenerationCountAggregateOutputType> | number
+          }
+        }
+      }
       Job: {
         payload: Prisma.$JobPayload<ExtArgs>
         fields: Prisma.JobFieldRefs
@@ -1053,6 +1262,80 @@ export namespace Prisma {
           count: {
             args: Prisma.JobCountArgs<ExtArgs>
             result: $Utils.Optional<JobCountAggregateOutputType> | number
+          }
+        }
+      }
+      UsageMonthly: {
+        payload: Prisma.$UsageMonthlyPayload<ExtArgs>
+        fields: Prisma.UsageMonthlyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UsageMonthlyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UsageMonthlyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>
+          }
+          findFirst: {
+            args: Prisma.UsageMonthlyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UsageMonthlyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>
+          }
+          findMany: {
+            args: Prisma.UsageMonthlyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>[]
+          }
+          create: {
+            args: Prisma.UsageMonthlyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>
+          }
+          createMany: {
+            args: Prisma.UsageMonthlyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UsageMonthlyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>[]
+          }
+          delete: {
+            args: Prisma.UsageMonthlyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>
+          }
+          update: {
+            args: Prisma.UsageMonthlyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>
+          }
+          deleteMany: {
+            args: Prisma.UsageMonthlyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UsageMonthlyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UsageMonthlyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>[]
+          }
+          upsert: {
+            args: Prisma.UsageMonthlyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsageMonthlyPayload>
+          }
+          aggregate: {
+            args: Prisma.UsageMonthlyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUsageMonthly>
+          }
+          groupBy: {
+            args: Prisma.UsageMonthlyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UsageMonthlyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UsageMonthlyCountArgs<ExtArgs>
+            result: $Utils.Optional<UsageMonthlyCountAggregateOutputType> | number
           }
         }
       }
@@ -1168,7 +1451,10 @@ export namespace Prisma {
     project?: ProjectOmit
     product?: ProductOmit
     generation?: GenerationOmit
+    collectionPage?: CollectionPageOmit
+    collectionGeneration?: CollectionGenerationOmit
     job?: JobOmit
+    usageMonthly?: UsageMonthlyOmit
   }
 
   /* Types for Logging */
@@ -1250,10 +1536,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     projects: number
+    usageMonthly: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | UserCountOutputTypeCountProjectsArgs
+    usageMonthly?: boolean | UserCountOutputTypeCountUsageMonthlyArgs
   }
 
   // Custom InputTypes
@@ -1274,6 +1562,13 @@ export namespace Prisma {
     where?: ProjectWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUsageMonthlyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsageMonthlyWhereInput
+  }
+
 
   /**
    * Count Type ProjectCountOutputType
@@ -1281,11 +1576,13 @@ export namespace Prisma {
 
   export type ProjectCountOutputType = {
     products: number
+    collectionPages: number
     jobs: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | ProjectCountOutputTypeCountProductsArgs
+    collectionPages?: boolean | ProjectCountOutputTypeCountCollectionPagesArgs
     jobs?: boolean | ProjectCountOutputTypeCountJobsArgs
   }
 
@@ -1305,6 +1602,13 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProductWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountCollectionPagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CollectionPageWhereInput
   }
 
   /**
@@ -1334,6 +1638,7 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     createdAt: Date | null
+    plan: $Enums.SubscriptionPlan | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1341,6 +1646,7 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     createdAt: Date | null
+    plan: $Enums.SubscriptionPlan | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1348,6 +1654,7 @@ export namespace Prisma {
     email: number
     passwordHash: number
     createdAt: number
+    plan: number
     _all: number
   }
 
@@ -1357,6 +1664,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     createdAt?: true
+    plan?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1364,6 +1672,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     createdAt?: true
+    plan?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1371,6 +1680,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     createdAt?: true
+    plan?: true
     _all?: true
   }
 
@@ -1451,6 +1761,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     createdAt: Date
+    plan: $Enums.SubscriptionPlan
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1475,7 +1786,9 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     createdAt?: boolean
+    plan?: boolean
     projects?: boolean | User$projectsArgs<ExtArgs>
+    usageMonthly?: boolean | User$usageMonthlyArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1484,6 +1797,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     createdAt?: boolean
+    plan?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1491,6 +1805,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     createdAt?: boolean
+    plan?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1498,11 +1813,13 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     createdAt?: boolean
+    plan?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "createdAt" | "plan", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | User$projectsArgs<ExtArgs>
+    usageMonthly?: boolean | User$usageMonthlyArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1512,12 +1829,14 @@ export namespace Prisma {
     name: "User"
     objects: {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
+      usageMonthly: Prisma.$UsageMonthlyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
       passwordHash: string
       createdAt: Date
+      plan: $Enums.SubscriptionPlan
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1913,6 +2232,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    usageMonthly<T extends User$usageMonthlyArgs<ExtArgs> = {}>(args?: Subset<T, User$usageMonthlyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1946,6 +2266,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly plan: FieldRef<"User", 'SubscriptionPlan'>
   }
     
 
@@ -2363,6 +2684,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.usageMonthly
+   */
+  export type User$usageMonthlyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    where?: UsageMonthlyWhereInput
+    orderBy?: UsageMonthlyOrderByWithRelationInput | UsageMonthlyOrderByWithRelationInput[]
+    cursor?: UsageMonthlyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UsageMonthlyScalarFieldEnum | UsageMonthlyScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2539,6 +2884,7 @@ export namespace Prisma {
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     products?: boolean | Project$productsArgs<ExtArgs>
+    collectionPages?: boolean | Project$collectionPagesArgs<ExtArgs>
     jobs?: boolean | Project$jobsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
@@ -2570,6 +2916,7 @@ export namespace Prisma {
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     products?: boolean | Project$productsArgs<ExtArgs>
+    collectionPages?: boolean | Project$collectionPagesArgs<ExtArgs>
     jobs?: boolean | Project$jobsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2585,6 +2932,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       products: Prisma.$ProductPayload<ExtArgs>[]
+      collectionPages: Prisma.$CollectionPagePayload<ExtArgs>[]
       jobs: Prisma.$JobPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2988,6 +3336,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Project$productsArgs<ExtArgs> = {}>(args?: Subset<T, Project$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    collectionPages<T extends Project$collectionPagesArgs<ExtArgs> = {}>(args?: Subset<T, Project$collectionPagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     jobs<T extends Project$jobsArgs<ExtArgs> = {}>(args?: Subset<T, Project$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3444,6 +3793,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+  /**
+   * Project.collectionPages
+   */
+  export type Project$collectionPagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    where?: CollectionPageWhereInput
+    orderBy?: CollectionPageOrderByWithRelationInput | CollectionPageOrderByWithRelationInput[]
+    cursor?: CollectionPageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CollectionPageScalarFieldEnum | CollectionPageScalarFieldEnum[]
   }
 
   /**
@@ -5781,6 +6154,2215 @@ export namespace Prisma {
 
 
   /**
+   * Model CollectionPage
+   */
+
+  export type AggregateCollectionPage = {
+    _count: CollectionPageCountAggregateOutputType | null
+    _min: CollectionPageMinAggregateOutputType | null
+    _max: CollectionPageMaxAggregateOutputType | null
+  }
+
+  export type CollectionPageMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    originalDescription: string | null
+    createdAt: Date | null
+    projectId: string | null
+  }
+
+  export type CollectionPageMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    originalDescription: string | null
+    createdAt: Date | null
+    projectId: string | null
+  }
+
+  export type CollectionPageCountAggregateOutputType = {
+    id: number
+    label: number
+    originalDescription: number
+    createdAt: number
+    projectId: number
+    _all: number
+  }
+
+
+  export type CollectionPageMinAggregateInputType = {
+    id?: true
+    label?: true
+    originalDescription?: true
+    createdAt?: true
+    projectId?: true
+  }
+
+  export type CollectionPageMaxAggregateInputType = {
+    id?: true
+    label?: true
+    originalDescription?: true
+    createdAt?: true
+    projectId?: true
+  }
+
+  export type CollectionPageCountAggregateInputType = {
+    id?: true
+    label?: true
+    originalDescription?: true
+    createdAt?: true
+    projectId?: true
+    _all?: true
+  }
+
+  export type CollectionPageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CollectionPage to aggregate.
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionPages to fetch.
+     */
+    orderBy?: CollectionPageOrderByWithRelationInput | CollectionPageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CollectionPageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionPages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionPages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CollectionPages
+    **/
+    _count?: true | CollectionPageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CollectionPageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CollectionPageMaxAggregateInputType
+  }
+
+  export type GetCollectionPageAggregateType<T extends CollectionPageAggregateArgs> = {
+        [P in keyof T & keyof AggregateCollectionPage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollectionPage[P]>
+      : GetScalarType<T[P], AggregateCollectionPage[P]>
+  }
+
+
+
+
+  export type CollectionPageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CollectionPageWhereInput
+    orderBy?: CollectionPageOrderByWithAggregationInput | CollectionPageOrderByWithAggregationInput[]
+    by: CollectionPageScalarFieldEnum[] | CollectionPageScalarFieldEnum
+    having?: CollectionPageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CollectionPageCountAggregateInputType | true
+    _min?: CollectionPageMinAggregateInputType
+    _max?: CollectionPageMaxAggregateInputType
+  }
+
+  export type CollectionPageGroupByOutputType = {
+    id: string
+    label: string
+    originalDescription: string
+    createdAt: Date
+    projectId: string
+    _count: CollectionPageCountAggregateOutputType | null
+    _min: CollectionPageMinAggregateOutputType | null
+    _max: CollectionPageMaxAggregateOutputType | null
+  }
+
+  type GetCollectionPageGroupByPayload<T extends CollectionPageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CollectionPageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CollectionPageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CollectionPageGroupByOutputType[P]>
+            : GetScalarType<T[P], CollectionPageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CollectionPageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    originalDescription?: boolean
+    createdAt?: boolean
+    projectId?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    generation?: boolean | CollectionPage$generationArgs<ExtArgs>
+  }, ExtArgs["result"]["collectionPage"]>
+
+  export type CollectionPageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    originalDescription?: boolean
+    createdAt?: boolean
+    projectId?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collectionPage"]>
+
+  export type CollectionPageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    originalDescription?: boolean
+    createdAt?: boolean
+    projectId?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collectionPage"]>
+
+  export type CollectionPageSelectScalar = {
+    id?: boolean
+    label?: boolean
+    originalDescription?: boolean
+    createdAt?: boolean
+    projectId?: boolean
+  }
+
+  export type CollectionPageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "originalDescription" | "createdAt" | "projectId", ExtArgs["result"]["collectionPage"]>
+  export type CollectionPageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    generation?: boolean | CollectionPage$generationArgs<ExtArgs>
+  }
+  export type CollectionPageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+  export type CollectionPageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+  export type $CollectionPagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CollectionPage"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+      generation: Prisma.$CollectionGenerationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      originalDescription: string
+      createdAt: Date
+      projectId: string
+    }, ExtArgs["result"]["collectionPage"]>
+    composites: {}
+  }
+
+  type CollectionPageGetPayload<S extends boolean | null | undefined | CollectionPageDefaultArgs> = $Result.GetResult<Prisma.$CollectionPagePayload, S>
+
+  type CollectionPageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CollectionPageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CollectionPageCountAggregateInputType | true
+    }
+
+  export interface CollectionPageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CollectionPage'], meta: { name: 'CollectionPage' } }
+    /**
+     * Find zero or one CollectionPage that matches the filter.
+     * @param {CollectionPageFindUniqueArgs} args - Arguments to find a CollectionPage
+     * @example
+     * // Get one CollectionPage
+     * const collectionPage = await prisma.collectionPage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CollectionPageFindUniqueArgs>(args: SelectSubset<T, CollectionPageFindUniqueArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CollectionPage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CollectionPageFindUniqueOrThrowArgs} args - Arguments to find a CollectionPage
+     * @example
+     * // Get one CollectionPage
+     * const collectionPage = await prisma.collectionPage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CollectionPageFindUniqueOrThrowArgs>(args: SelectSubset<T, CollectionPageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CollectionPage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageFindFirstArgs} args - Arguments to find a CollectionPage
+     * @example
+     * // Get one CollectionPage
+     * const collectionPage = await prisma.collectionPage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CollectionPageFindFirstArgs>(args?: SelectSubset<T, CollectionPageFindFirstArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CollectionPage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageFindFirstOrThrowArgs} args - Arguments to find a CollectionPage
+     * @example
+     * // Get one CollectionPage
+     * const collectionPage = await prisma.collectionPage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CollectionPageFindFirstOrThrowArgs>(args?: SelectSubset<T, CollectionPageFindFirstOrThrowArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CollectionPages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CollectionPages
+     * const collectionPages = await prisma.collectionPage.findMany()
+     * 
+     * // Get first 10 CollectionPages
+     * const collectionPages = await prisma.collectionPage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const collectionPageWithIdOnly = await prisma.collectionPage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CollectionPageFindManyArgs>(args?: SelectSubset<T, CollectionPageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CollectionPage.
+     * @param {CollectionPageCreateArgs} args - Arguments to create a CollectionPage.
+     * @example
+     * // Create one CollectionPage
+     * const CollectionPage = await prisma.collectionPage.create({
+     *   data: {
+     *     // ... data to create a CollectionPage
+     *   }
+     * })
+     * 
+     */
+    create<T extends CollectionPageCreateArgs>(args: SelectSubset<T, CollectionPageCreateArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CollectionPages.
+     * @param {CollectionPageCreateManyArgs} args - Arguments to create many CollectionPages.
+     * @example
+     * // Create many CollectionPages
+     * const collectionPage = await prisma.collectionPage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CollectionPageCreateManyArgs>(args?: SelectSubset<T, CollectionPageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CollectionPages and returns the data saved in the database.
+     * @param {CollectionPageCreateManyAndReturnArgs} args - Arguments to create many CollectionPages.
+     * @example
+     * // Create many CollectionPages
+     * const collectionPage = await prisma.collectionPage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CollectionPages and only return the `id`
+     * const collectionPageWithIdOnly = await prisma.collectionPage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CollectionPageCreateManyAndReturnArgs>(args?: SelectSubset<T, CollectionPageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CollectionPage.
+     * @param {CollectionPageDeleteArgs} args - Arguments to delete one CollectionPage.
+     * @example
+     * // Delete one CollectionPage
+     * const CollectionPage = await prisma.collectionPage.delete({
+     *   where: {
+     *     // ... filter to delete one CollectionPage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CollectionPageDeleteArgs>(args: SelectSubset<T, CollectionPageDeleteArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CollectionPage.
+     * @param {CollectionPageUpdateArgs} args - Arguments to update one CollectionPage.
+     * @example
+     * // Update one CollectionPage
+     * const collectionPage = await prisma.collectionPage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CollectionPageUpdateArgs>(args: SelectSubset<T, CollectionPageUpdateArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CollectionPages.
+     * @param {CollectionPageDeleteManyArgs} args - Arguments to filter CollectionPages to delete.
+     * @example
+     * // Delete a few CollectionPages
+     * const { count } = await prisma.collectionPage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CollectionPageDeleteManyArgs>(args?: SelectSubset<T, CollectionPageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CollectionPages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CollectionPages
+     * const collectionPage = await prisma.collectionPage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CollectionPageUpdateManyArgs>(args: SelectSubset<T, CollectionPageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CollectionPages and returns the data updated in the database.
+     * @param {CollectionPageUpdateManyAndReturnArgs} args - Arguments to update many CollectionPages.
+     * @example
+     * // Update many CollectionPages
+     * const collectionPage = await prisma.collectionPage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CollectionPages and only return the `id`
+     * const collectionPageWithIdOnly = await prisma.collectionPage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CollectionPageUpdateManyAndReturnArgs>(args: SelectSubset<T, CollectionPageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CollectionPage.
+     * @param {CollectionPageUpsertArgs} args - Arguments to update or create a CollectionPage.
+     * @example
+     * // Update or create a CollectionPage
+     * const collectionPage = await prisma.collectionPage.upsert({
+     *   create: {
+     *     // ... data to create a CollectionPage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CollectionPage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CollectionPageUpsertArgs>(args: SelectSubset<T, CollectionPageUpsertArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CollectionPages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageCountArgs} args - Arguments to filter CollectionPages to count.
+     * @example
+     * // Count the number of CollectionPages
+     * const count = await prisma.collectionPage.count({
+     *   where: {
+     *     // ... the filter for the CollectionPages we want to count
+     *   }
+     * })
+    **/
+    count<T extends CollectionPageCountArgs>(
+      args?: Subset<T, CollectionPageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CollectionPageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CollectionPage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CollectionPageAggregateArgs>(args: Subset<T, CollectionPageAggregateArgs>): Prisma.PrismaPromise<GetCollectionPageAggregateType<T>>
+
+    /**
+     * Group by CollectionPage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionPageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CollectionPageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CollectionPageGroupByArgs['orderBy'] }
+        : { orderBy?: CollectionPageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CollectionPageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCollectionPageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CollectionPage model
+   */
+  readonly fields: CollectionPageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CollectionPage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CollectionPageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    generation<T extends CollectionPage$generationArgs<ExtArgs> = {}>(args?: Subset<T, CollectionPage$generationArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CollectionPage model
+   */
+  interface CollectionPageFieldRefs {
+    readonly id: FieldRef<"CollectionPage", 'String'>
+    readonly label: FieldRef<"CollectionPage", 'String'>
+    readonly originalDescription: FieldRef<"CollectionPage", 'String'>
+    readonly createdAt: FieldRef<"CollectionPage", 'DateTime'>
+    readonly projectId: FieldRef<"CollectionPage", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CollectionPage findUnique
+   */
+  export type CollectionPageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionPage to fetch.
+     */
+    where: CollectionPageWhereUniqueInput
+  }
+
+  /**
+   * CollectionPage findUniqueOrThrow
+   */
+  export type CollectionPageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionPage to fetch.
+     */
+    where: CollectionPageWhereUniqueInput
+  }
+
+  /**
+   * CollectionPage findFirst
+   */
+  export type CollectionPageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionPage to fetch.
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionPages to fetch.
+     */
+    orderBy?: CollectionPageOrderByWithRelationInput | CollectionPageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CollectionPages.
+     */
+    cursor?: CollectionPageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionPages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionPages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CollectionPages.
+     */
+    distinct?: CollectionPageScalarFieldEnum | CollectionPageScalarFieldEnum[]
+  }
+
+  /**
+   * CollectionPage findFirstOrThrow
+   */
+  export type CollectionPageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionPage to fetch.
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionPages to fetch.
+     */
+    orderBy?: CollectionPageOrderByWithRelationInput | CollectionPageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CollectionPages.
+     */
+    cursor?: CollectionPageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionPages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionPages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CollectionPages.
+     */
+    distinct?: CollectionPageScalarFieldEnum | CollectionPageScalarFieldEnum[]
+  }
+
+  /**
+   * CollectionPage findMany
+   */
+  export type CollectionPageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionPages to fetch.
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionPages to fetch.
+     */
+    orderBy?: CollectionPageOrderByWithRelationInput | CollectionPageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CollectionPages.
+     */
+    cursor?: CollectionPageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionPages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionPages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CollectionPages.
+     */
+    distinct?: CollectionPageScalarFieldEnum | CollectionPageScalarFieldEnum[]
+  }
+
+  /**
+   * CollectionPage create
+   */
+  export type CollectionPageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CollectionPage.
+     */
+    data: XOR<CollectionPageCreateInput, CollectionPageUncheckedCreateInput>
+  }
+
+  /**
+   * CollectionPage createMany
+   */
+  export type CollectionPageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CollectionPages.
+     */
+    data: CollectionPageCreateManyInput | CollectionPageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CollectionPage createManyAndReturn
+   */
+  export type CollectionPageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * The data used to create many CollectionPages.
+     */
+    data: CollectionPageCreateManyInput | CollectionPageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CollectionPage update
+   */
+  export type CollectionPageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CollectionPage.
+     */
+    data: XOR<CollectionPageUpdateInput, CollectionPageUncheckedUpdateInput>
+    /**
+     * Choose, which CollectionPage to update.
+     */
+    where: CollectionPageWhereUniqueInput
+  }
+
+  /**
+   * CollectionPage updateMany
+   */
+  export type CollectionPageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CollectionPages.
+     */
+    data: XOR<CollectionPageUpdateManyMutationInput, CollectionPageUncheckedUpdateManyInput>
+    /**
+     * Filter which CollectionPages to update
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * Limit how many CollectionPages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CollectionPage updateManyAndReturn
+   */
+  export type CollectionPageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * The data used to update CollectionPages.
+     */
+    data: XOR<CollectionPageUpdateManyMutationInput, CollectionPageUncheckedUpdateManyInput>
+    /**
+     * Filter which CollectionPages to update
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * Limit how many CollectionPages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CollectionPage upsert
+   */
+  export type CollectionPageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CollectionPage to update in case it exists.
+     */
+    where: CollectionPageWhereUniqueInput
+    /**
+     * In case the CollectionPage found by the `where` argument doesn't exist, create a new CollectionPage with this data.
+     */
+    create: XOR<CollectionPageCreateInput, CollectionPageUncheckedCreateInput>
+    /**
+     * In case the CollectionPage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CollectionPageUpdateInput, CollectionPageUncheckedUpdateInput>
+  }
+
+  /**
+   * CollectionPage delete
+   */
+  export type CollectionPageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+    /**
+     * Filter which CollectionPage to delete.
+     */
+    where: CollectionPageWhereUniqueInput
+  }
+
+  /**
+   * CollectionPage deleteMany
+   */
+  export type CollectionPageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CollectionPages to delete
+     */
+    where?: CollectionPageWhereInput
+    /**
+     * Limit how many CollectionPages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CollectionPage.generation
+   */
+  export type CollectionPage$generationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    where?: CollectionGenerationWhereInput
+  }
+
+  /**
+   * CollectionPage without action
+   */
+  export type CollectionPageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionPage
+     */
+    select?: CollectionPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionPage
+     */
+    omit?: CollectionPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionPageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CollectionGeneration
+   */
+
+  export type AggregateCollectionGeneration = {
+    _count: CollectionGenerationCountAggregateOutputType | null
+    _avg: CollectionGenerationAvgAggregateOutputType | null
+    _sum: CollectionGenerationSumAggregateOutputType | null
+    _min: CollectionGenerationMinAggregateOutputType | null
+    _max: CollectionGenerationMaxAggregateOutputType | null
+  }
+
+  export type CollectionGenerationAvgAggregateOutputType = {
+    seoScore: number | null
+  }
+
+  export type CollectionGenerationSumAggregateOutputType = {
+    seoScore: number | null
+  }
+
+  export type CollectionGenerationMinAggregateOutputType = {
+    id: string | null
+    optimizedTitle: string | null
+    optimizedDescription: string | null
+    seoKeywords: string | null
+    seoScore: number | null
+    createdAt: Date | null
+    collectionPageId: string | null
+  }
+
+  export type CollectionGenerationMaxAggregateOutputType = {
+    id: string | null
+    optimizedTitle: string | null
+    optimizedDescription: string | null
+    seoKeywords: string | null
+    seoScore: number | null
+    createdAt: Date | null
+    collectionPageId: string | null
+  }
+
+  export type CollectionGenerationCountAggregateOutputType = {
+    id: number
+    optimizedTitle: number
+    optimizedDescription: number
+    seoKeywords: number
+    seoScore: number
+    createdAt: number
+    collectionPageId: number
+    _all: number
+  }
+
+
+  export type CollectionGenerationAvgAggregateInputType = {
+    seoScore?: true
+  }
+
+  export type CollectionGenerationSumAggregateInputType = {
+    seoScore?: true
+  }
+
+  export type CollectionGenerationMinAggregateInputType = {
+    id?: true
+    optimizedTitle?: true
+    optimizedDescription?: true
+    seoKeywords?: true
+    seoScore?: true
+    createdAt?: true
+    collectionPageId?: true
+  }
+
+  export type CollectionGenerationMaxAggregateInputType = {
+    id?: true
+    optimizedTitle?: true
+    optimizedDescription?: true
+    seoKeywords?: true
+    seoScore?: true
+    createdAt?: true
+    collectionPageId?: true
+  }
+
+  export type CollectionGenerationCountAggregateInputType = {
+    id?: true
+    optimizedTitle?: true
+    optimizedDescription?: true
+    seoKeywords?: true
+    seoScore?: true
+    createdAt?: true
+    collectionPageId?: true
+    _all?: true
+  }
+
+  export type CollectionGenerationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CollectionGeneration to aggregate.
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionGenerations to fetch.
+     */
+    orderBy?: CollectionGenerationOrderByWithRelationInput | CollectionGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CollectionGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CollectionGenerations
+    **/
+    _count?: true | CollectionGenerationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CollectionGenerationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CollectionGenerationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CollectionGenerationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CollectionGenerationMaxAggregateInputType
+  }
+
+  export type GetCollectionGenerationAggregateType<T extends CollectionGenerationAggregateArgs> = {
+        [P in keyof T & keyof AggregateCollectionGeneration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollectionGeneration[P]>
+      : GetScalarType<T[P], AggregateCollectionGeneration[P]>
+  }
+
+
+
+
+  export type CollectionGenerationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CollectionGenerationWhereInput
+    orderBy?: CollectionGenerationOrderByWithAggregationInput | CollectionGenerationOrderByWithAggregationInput[]
+    by: CollectionGenerationScalarFieldEnum[] | CollectionGenerationScalarFieldEnum
+    having?: CollectionGenerationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CollectionGenerationCountAggregateInputType | true
+    _avg?: CollectionGenerationAvgAggregateInputType
+    _sum?: CollectionGenerationSumAggregateInputType
+    _min?: CollectionGenerationMinAggregateInputType
+    _max?: CollectionGenerationMaxAggregateInputType
+  }
+
+  export type CollectionGenerationGroupByOutputType = {
+    id: string
+    optimizedTitle: string
+    optimizedDescription: string
+    seoKeywords: string
+    seoScore: number
+    createdAt: Date
+    collectionPageId: string
+    _count: CollectionGenerationCountAggregateOutputType | null
+    _avg: CollectionGenerationAvgAggregateOutputType | null
+    _sum: CollectionGenerationSumAggregateOutputType | null
+    _min: CollectionGenerationMinAggregateOutputType | null
+    _max: CollectionGenerationMaxAggregateOutputType | null
+  }
+
+  type GetCollectionGenerationGroupByPayload<T extends CollectionGenerationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CollectionGenerationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CollectionGenerationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CollectionGenerationGroupByOutputType[P]>
+            : GetScalarType<T[P], CollectionGenerationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CollectionGenerationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    optimizedTitle?: boolean
+    optimizedDescription?: boolean
+    seoKeywords?: boolean
+    seoScore?: boolean
+    createdAt?: boolean
+    collectionPageId?: boolean
+    collectionPage?: boolean | CollectionPageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collectionGeneration"]>
+
+  export type CollectionGenerationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    optimizedTitle?: boolean
+    optimizedDescription?: boolean
+    seoKeywords?: boolean
+    seoScore?: boolean
+    createdAt?: boolean
+    collectionPageId?: boolean
+    collectionPage?: boolean | CollectionPageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collectionGeneration"]>
+
+  export type CollectionGenerationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    optimizedTitle?: boolean
+    optimizedDescription?: boolean
+    seoKeywords?: boolean
+    seoScore?: boolean
+    createdAt?: boolean
+    collectionPageId?: boolean
+    collectionPage?: boolean | CollectionPageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collectionGeneration"]>
+
+  export type CollectionGenerationSelectScalar = {
+    id?: boolean
+    optimizedTitle?: boolean
+    optimizedDescription?: boolean
+    seoKeywords?: boolean
+    seoScore?: boolean
+    createdAt?: boolean
+    collectionPageId?: boolean
+  }
+
+  export type CollectionGenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "optimizedTitle" | "optimizedDescription" | "seoKeywords" | "seoScore" | "createdAt" | "collectionPageId", ExtArgs["result"]["collectionGeneration"]>
+  export type CollectionGenerationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collectionPage?: boolean | CollectionPageDefaultArgs<ExtArgs>
+  }
+  export type CollectionGenerationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collectionPage?: boolean | CollectionPageDefaultArgs<ExtArgs>
+  }
+  export type CollectionGenerationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collectionPage?: boolean | CollectionPageDefaultArgs<ExtArgs>
+  }
+
+  export type $CollectionGenerationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CollectionGeneration"
+    objects: {
+      collectionPage: Prisma.$CollectionPagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      optimizedTitle: string
+      optimizedDescription: string
+      seoKeywords: string
+      seoScore: number
+      createdAt: Date
+      collectionPageId: string
+    }, ExtArgs["result"]["collectionGeneration"]>
+    composites: {}
+  }
+
+  type CollectionGenerationGetPayload<S extends boolean | null | undefined | CollectionGenerationDefaultArgs> = $Result.GetResult<Prisma.$CollectionGenerationPayload, S>
+
+  type CollectionGenerationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CollectionGenerationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CollectionGenerationCountAggregateInputType | true
+    }
+
+  export interface CollectionGenerationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CollectionGeneration'], meta: { name: 'CollectionGeneration' } }
+    /**
+     * Find zero or one CollectionGeneration that matches the filter.
+     * @param {CollectionGenerationFindUniqueArgs} args - Arguments to find a CollectionGeneration
+     * @example
+     * // Get one CollectionGeneration
+     * const collectionGeneration = await prisma.collectionGeneration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CollectionGenerationFindUniqueArgs>(args: SelectSubset<T, CollectionGenerationFindUniqueArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CollectionGeneration that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CollectionGenerationFindUniqueOrThrowArgs} args - Arguments to find a CollectionGeneration
+     * @example
+     * // Get one CollectionGeneration
+     * const collectionGeneration = await prisma.collectionGeneration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CollectionGenerationFindUniqueOrThrowArgs>(args: SelectSubset<T, CollectionGenerationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CollectionGeneration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationFindFirstArgs} args - Arguments to find a CollectionGeneration
+     * @example
+     * // Get one CollectionGeneration
+     * const collectionGeneration = await prisma.collectionGeneration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CollectionGenerationFindFirstArgs>(args?: SelectSubset<T, CollectionGenerationFindFirstArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CollectionGeneration that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationFindFirstOrThrowArgs} args - Arguments to find a CollectionGeneration
+     * @example
+     * // Get one CollectionGeneration
+     * const collectionGeneration = await prisma.collectionGeneration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CollectionGenerationFindFirstOrThrowArgs>(args?: SelectSubset<T, CollectionGenerationFindFirstOrThrowArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CollectionGenerations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CollectionGenerations
+     * const collectionGenerations = await prisma.collectionGeneration.findMany()
+     * 
+     * // Get first 10 CollectionGenerations
+     * const collectionGenerations = await prisma.collectionGeneration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const collectionGenerationWithIdOnly = await prisma.collectionGeneration.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CollectionGenerationFindManyArgs>(args?: SelectSubset<T, CollectionGenerationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CollectionGeneration.
+     * @param {CollectionGenerationCreateArgs} args - Arguments to create a CollectionGeneration.
+     * @example
+     * // Create one CollectionGeneration
+     * const CollectionGeneration = await prisma.collectionGeneration.create({
+     *   data: {
+     *     // ... data to create a CollectionGeneration
+     *   }
+     * })
+     * 
+     */
+    create<T extends CollectionGenerationCreateArgs>(args: SelectSubset<T, CollectionGenerationCreateArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CollectionGenerations.
+     * @param {CollectionGenerationCreateManyArgs} args - Arguments to create many CollectionGenerations.
+     * @example
+     * // Create many CollectionGenerations
+     * const collectionGeneration = await prisma.collectionGeneration.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CollectionGenerationCreateManyArgs>(args?: SelectSubset<T, CollectionGenerationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CollectionGenerations and returns the data saved in the database.
+     * @param {CollectionGenerationCreateManyAndReturnArgs} args - Arguments to create many CollectionGenerations.
+     * @example
+     * // Create many CollectionGenerations
+     * const collectionGeneration = await prisma.collectionGeneration.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CollectionGenerations and only return the `id`
+     * const collectionGenerationWithIdOnly = await prisma.collectionGeneration.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CollectionGenerationCreateManyAndReturnArgs>(args?: SelectSubset<T, CollectionGenerationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CollectionGeneration.
+     * @param {CollectionGenerationDeleteArgs} args - Arguments to delete one CollectionGeneration.
+     * @example
+     * // Delete one CollectionGeneration
+     * const CollectionGeneration = await prisma.collectionGeneration.delete({
+     *   where: {
+     *     // ... filter to delete one CollectionGeneration
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CollectionGenerationDeleteArgs>(args: SelectSubset<T, CollectionGenerationDeleteArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CollectionGeneration.
+     * @param {CollectionGenerationUpdateArgs} args - Arguments to update one CollectionGeneration.
+     * @example
+     * // Update one CollectionGeneration
+     * const collectionGeneration = await prisma.collectionGeneration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CollectionGenerationUpdateArgs>(args: SelectSubset<T, CollectionGenerationUpdateArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CollectionGenerations.
+     * @param {CollectionGenerationDeleteManyArgs} args - Arguments to filter CollectionGenerations to delete.
+     * @example
+     * // Delete a few CollectionGenerations
+     * const { count } = await prisma.collectionGeneration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CollectionGenerationDeleteManyArgs>(args?: SelectSubset<T, CollectionGenerationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CollectionGenerations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CollectionGenerations
+     * const collectionGeneration = await prisma.collectionGeneration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CollectionGenerationUpdateManyArgs>(args: SelectSubset<T, CollectionGenerationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CollectionGenerations and returns the data updated in the database.
+     * @param {CollectionGenerationUpdateManyAndReturnArgs} args - Arguments to update many CollectionGenerations.
+     * @example
+     * // Update many CollectionGenerations
+     * const collectionGeneration = await prisma.collectionGeneration.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CollectionGenerations and only return the `id`
+     * const collectionGenerationWithIdOnly = await prisma.collectionGeneration.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CollectionGenerationUpdateManyAndReturnArgs>(args: SelectSubset<T, CollectionGenerationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CollectionGeneration.
+     * @param {CollectionGenerationUpsertArgs} args - Arguments to update or create a CollectionGeneration.
+     * @example
+     * // Update or create a CollectionGeneration
+     * const collectionGeneration = await prisma.collectionGeneration.upsert({
+     *   create: {
+     *     // ... data to create a CollectionGeneration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CollectionGeneration we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CollectionGenerationUpsertArgs>(args: SelectSubset<T, CollectionGenerationUpsertArgs<ExtArgs>>): Prisma__CollectionGenerationClient<$Result.GetResult<Prisma.$CollectionGenerationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CollectionGenerations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationCountArgs} args - Arguments to filter CollectionGenerations to count.
+     * @example
+     * // Count the number of CollectionGenerations
+     * const count = await prisma.collectionGeneration.count({
+     *   where: {
+     *     // ... the filter for the CollectionGenerations we want to count
+     *   }
+     * })
+    **/
+    count<T extends CollectionGenerationCountArgs>(
+      args?: Subset<T, CollectionGenerationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CollectionGenerationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CollectionGeneration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CollectionGenerationAggregateArgs>(args: Subset<T, CollectionGenerationAggregateArgs>): Prisma.PrismaPromise<GetCollectionGenerationAggregateType<T>>
+
+    /**
+     * Group by CollectionGeneration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionGenerationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CollectionGenerationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CollectionGenerationGroupByArgs['orderBy'] }
+        : { orderBy?: CollectionGenerationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CollectionGenerationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCollectionGenerationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CollectionGeneration model
+   */
+  readonly fields: CollectionGenerationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CollectionGeneration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CollectionGenerationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    collectionPage<T extends CollectionPageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CollectionPageDefaultArgs<ExtArgs>>): Prisma__CollectionPageClient<$Result.GetResult<Prisma.$CollectionPagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CollectionGeneration model
+   */
+  interface CollectionGenerationFieldRefs {
+    readonly id: FieldRef<"CollectionGeneration", 'String'>
+    readonly optimizedTitle: FieldRef<"CollectionGeneration", 'String'>
+    readonly optimizedDescription: FieldRef<"CollectionGeneration", 'String'>
+    readonly seoKeywords: FieldRef<"CollectionGeneration", 'String'>
+    readonly seoScore: FieldRef<"CollectionGeneration", 'Int'>
+    readonly createdAt: FieldRef<"CollectionGeneration", 'DateTime'>
+    readonly collectionPageId: FieldRef<"CollectionGeneration", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CollectionGeneration findUnique
+   */
+  export type CollectionGenerationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionGeneration to fetch.
+     */
+    where: CollectionGenerationWhereUniqueInput
+  }
+
+  /**
+   * CollectionGeneration findUniqueOrThrow
+   */
+  export type CollectionGenerationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionGeneration to fetch.
+     */
+    where: CollectionGenerationWhereUniqueInput
+  }
+
+  /**
+   * CollectionGeneration findFirst
+   */
+  export type CollectionGenerationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionGeneration to fetch.
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionGenerations to fetch.
+     */
+    orderBy?: CollectionGenerationOrderByWithRelationInput | CollectionGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CollectionGenerations.
+     */
+    cursor?: CollectionGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CollectionGenerations.
+     */
+    distinct?: CollectionGenerationScalarFieldEnum | CollectionGenerationScalarFieldEnum[]
+  }
+
+  /**
+   * CollectionGeneration findFirstOrThrow
+   */
+  export type CollectionGenerationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionGeneration to fetch.
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionGenerations to fetch.
+     */
+    orderBy?: CollectionGenerationOrderByWithRelationInput | CollectionGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CollectionGenerations.
+     */
+    cursor?: CollectionGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CollectionGenerations.
+     */
+    distinct?: CollectionGenerationScalarFieldEnum | CollectionGenerationScalarFieldEnum[]
+  }
+
+  /**
+   * CollectionGeneration findMany
+   */
+  export type CollectionGenerationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which CollectionGenerations to fetch.
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CollectionGenerations to fetch.
+     */
+    orderBy?: CollectionGenerationOrderByWithRelationInput | CollectionGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CollectionGenerations.
+     */
+    cursor?: CollectionGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CollectionGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CollectionGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CollectionGenerations.
+     */
+    distinct?: CollectionGenerationScalarFieldEnum | CollectionGenerationScalarFieldEnum[]
+  }
+
+  /**
+   * CollectionGeneration create
+   */
+  export type CollectionGenerationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CollectionGeneration.
+     */
+    data: XOR<CollectionGenerationCreateInput, CollectionGenerationUncheckedCreateInput>
+  }
+
+  /**
+   * CollectionGeneration createMany
+   */
+  export type CollectionGenerationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CollectionGenerations.
+     */
+    data: CollectionGenerationCreateManyInput | CollectionGenerationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CollectionGeneration createManyAndReturn
+   */
+  export type CollectionGenerationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * The data used to create many CollectionGenerations.
+     */
+    data: CollectionGenerationCreateManyInput | CollectionGenerationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CollectionGeneration update
+   */
+  export type CollectionGenerationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CollectionGeneration.
+     */
+    data: XOR<CollectionGenerationUpdateInput, CollectionGenerationUncheckedUpdateInput>
+    /**
+     * Choose, which CollectionGeneration to update.
+     */
+    where: CollectionGenerationWhereUniqueInput
+  }
+
+  /**
+   * CollectionGeneration updateMany
+   */
+  export type CollectionGenerationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CollectionGenerations.
+     */
+    data: XOR<CollectionGenerationUpdateManyMutationInput, CollectionGenerationUncheckedUpdateManyInput>
+    /**
+     * Filter which CollectionGenerations to update
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * Limit how many CollectionGenerations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CollectionGeneration updateManyAndReturn
+   */
+  export type CollectionGenerationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * The data used to update CollectionGenerations.
+     */
+    data: XOR<CollectionGenerationUpdateManyMutationInput, CollectionGenerationUncheckedUpdateManyInput>
+    /**
+     * Filter which CollectionGenerations to update
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * Limit how many CollectionGenerations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CollectionGeneration upsert
+   */
+  export type CollectionGenerationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CollectionGeneration to update in case it exists.
+     */
+    where: CollectionGenerationWhereUniqueInput
+    /**
+     * In case the CollectionGeneration found by the `where` argument doesn't exist, create a new CollectionGeneration with this data.
+     */
+    create: XOR<CollectionGenerationCreateInput, CollectionGenerationUncheckedCreateInput>
+    /**
+     * In case the CollectionGeneration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CollectionGenerationUpdateInput, CollectionGenerationUncheckedUpdateInput>
+  }
+
+  /**
+   * CollectionGeneration delete
+   */
+  export type CollectionGenerationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+    /**
+     * Filter which CollectionGeneration to delete.
+     */
+    where: CollectionGenerationWhereUniqueInput
+  }
+
+  /**
+   * CollectionGeneration deleteMany
+   */
+  export type CollectionGenerationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CollectionGenerations to delete
+     */
+    where?: CollectionGenerationWhereInput
+    /**
+     * Limit how many CollectionGenerations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CollectionGeneration without action
+   */
+  export type CollectionGenerationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionGeneration
+     */
+    select?: CollectionGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CollectionGeneration
+     */
+    omit?: CollectionGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollectionGenerationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Job
    */
 
@@ -6891,6 +9473,1133 @@ export namespace Prisma {
 
 
   /**
+   * Model UsageMonthly
+   */
+
+  export type AggregateUsageMonthly = {
+    _count: UsageMonthlyCountAggregateOutputType | null
+    _avg: UsageMonthlyAvgAggregateOutputType | null
+    _sum: UsageMonthlySumAggregateOutputType | null
+    _min: UsageMonthlyMinAggregateOutputType | null
+    _max: UsageMonthlyMaxAggregateOutputType | null
+  }
+
+  export type UsageMonthlyAvgAggregateOutputType = {
+    optimizedProducts: number | null
+    estimatedCostCents: number | null
+  }
+
+  export type UsageMonthlySumAggregateOutputType = {
+    optimizedProducts: number | null
+    estimatedCostCents: number | null
+  }
+
+  export type UsageMonthlyMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    monthKey: string | null
+    optimizedProducts: number | null
+    estimatedCostCents: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UsageMonthlyMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    monthKey: string | null
+    optimizedProducts: number | null
+    estimatedCostCents: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UsageMonthlyCountAggregateOutputType = {
+    id: number
+    userId: number
+    monthKey: number
+    optimizedProducts: number
+    estimatedCostCents: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UsageMonthlyAvgAggregateInputType = {
+    optimizedProducts?: true
+    estimatedCostCents?: true
+  }
+
+  export type UsageMonthlySumAggregateInputType = {
+    optimizedProducts?: true
+    estimatedCostCents?: true
+  }
+
+  export type UsageMonthlyMinAggregateInputType = {
+    id?: true
+    userId?: true
+    monthKey?: true
+    optimizedProducts?: true
+    estimatedCostCents?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UsageMonthlyMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    monthKey?: true
+    optimizedProducts?: true
+    estimatedCostCents?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UsageMonthlyCountAggregateInputType = {
+    id?: true
+    userId?: true
+    monthKey?: true
+    optimizedProducts?: true
+    estimatedCostCents?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UsageMonthlyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UsageMonthly to aggregate.
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UsageMonthlies to fetch.
+     */
+    orderBy?: UsageMonthlyOrderByWithRelationInput | UsageMonthlyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UsageMonthlyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UsageMonthlies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UsageMonthlies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UsageMonthlies
+    **/
+    _count?: true | UsageMonthlyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UsageMonthlyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UsageMonthlySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UsageMonthlyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UsageMonthlyMaxAggregateInputType
+  }
+
+  export type GetUsageMonthlyAggregateType<T extends UsageMonthlyAggregateArgs> = {
+        [P in keyof T & keyof AggregateUsageMonthly]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUsageMonthly[P]>
+      : GetScalarType<T[P], AggregateUsageMonthly[P]>
+  }
+
+
+
+
+  export type UsageMonthlyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsageMonthlyWhereInput
+    orderBy?: UsageMonthlyOrderByWithAggregationInput | UsageMonthlyOrderByWithAggregationInput[]
+    by: UsageMonthlyScalarFieldEnum[] | UsageMonthlyScalarFieldEnum
+    having?: UsageMonthlyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UsageMonthlyCountAggregateInputType | true
+    _avg?: UsageMonthlyAvgAggregateInputType
+    _sum?: UsageMonthlySumAggregateInputType
+    _min?: UsageMonthlyMinAggregateInputType
+    _max?: UsageMonthlyMaxAggregateInputType
+  }
+
+  export type UsageMonthlyGroupByOutputType = {
+    id: string
+    userId: string
+    monthKey: string
+    optimizedProducts: number
+    estimatedCostCents: number
+    createdAt: Date
+    updatedAt: Date
+    _count: UsageMonthlyCountAggregateOutputType | null
+    _avg: UsageMonthlyAvgAggregateOutputType | null
+    _sum: UsageMonthlySumAggregateOutputType | null
+    _min: UsageMonthlyMinAggregateOutputType | null
+    _max: UsageMonthlyMaxAggregateOutputType | null
+  }
+
+  type GetUsageMonthlyGroupByPayload<T extends UsageMonthlyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UsageMonthlyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UsageMonthlyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UsageMonthlyGroupByOutputType[P]>
+            : GetScalarType<T[P], UsageMonthlyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UsageMonthlySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    monthKey?: boolean
+    optimizedProducts?: boolean
+    estimatedCostCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["usageMonthly"]>
+
+  export type UsageMonthlySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    monthKey?: boolean
+    optimizedProducts?: boolean
+    estimatedCostCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["usageMonthly"]>
+
+  export type UsageMonthlySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    monthKey?: boolean
+    optimizedProducts?: boolean
+    estimatedCostCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["usageMonthly"]>
+
+  export type UsageMonthlySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    monthKey?: boolean
+    optimizedProducts?: boolean
+    estimatedCostCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UsageMonthlyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "monthKey" | "optimizedProducts" | "estimatedCostCents" | "createdAt" | "updatedAt", ExtArgs["result"]["usageMonthly"]>
+  export type UsageMonthlyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UsageMonthlyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UsageMonthlyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UsageMonthlyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UsageMonthly"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      monthKey: string
+      optimizedProducts: number
+      estimatedCostCents: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["usageMonthly"]>
+    composites: {}
+  }
+
+  type UsageMonthlyGetPayload<S extends boolean | null | undefined | UsageMonthlyDefaultArgs> = $Result.GetResult<Prisma.$UsageMonthlyPayload, S>
+
+  type UsageMonthlyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UsageMonthlyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UsageMonthlyCountAggregateInputType | true
+    }
+
+  export interface UsageMonthlyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UsageMonthly'], meta: { name: 'UsageMonthly' } }
+    /**
+     * Find zero or one UsageMonthly that matches the filter.
+     * @param {UsageMonthlyFindUniqueArgs} args - Arguments to find a UsageMonthly
+     * @example
+     * // Get one UsageMonthly
+     * const usageMonthly = await prisma.usageMonthly.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UsageMonthlyFindUniqueArgs>(args: SelectSubset<T, UsageMonthlyFindUniqueArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UsageMonthly that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UsageMonthlyFindUniqueOrThrowArgs} args - Arguments to find a UsageMonthly
+     * @example
+     * // Get one UsageMonthly
+     * const usageMonthly = await prisma.usageMonthly.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UsageMonthlyFindUniqueOrThrowArgs>(args: SelectSubset<T, UsageMonthlyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UsageMonthly that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyFindFirstArgs} args - Arguments to find a UsageMonthly
+     * @example
+     * // Get one UsageMonthly
+     * const usageMonthly = await prisma.usageMonthly.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UsageMonthlyFindFirstArgs>(args?: SelectSubset<T, UsageMonthlyFindFirstArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UsageMonthly that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyFindFirstOrThrowArgs} args - Arguments to find a UsageMonthly
+     * @example
+     * // Get one UsageMonthly
+     * const usageMonthly = await prisma.usageMonthly.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UsageMonthlyFindFirstOrThrowArgs>(args?: SelectSubset<T, UsageMonthlyFindFirstOrThrowArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UsageMonthlies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UsageMonthlies
+     * const usageMonthlies = await prisma.usageMonthly.findMany()
+     * 
+     * // Get first 10 UsageMonthlies
+     * const usageMonthlies = await prisma.usageMonthly.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const usageMonthlyWithIdOnly = await prisma.usageMonthly.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UsageMonthlyFindManyArgs>(args?: SelectSubset<T, UsageMonthlyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UsageMonthly.
+     * @param {UsageMonthlyCreateArgs} args - Arguments to create a UsageMonthly.
+     * @example
+     * // Create one UsageMonthly
+     * const UsageMonthly = await prisma.usageMonthly.create({
+     *   data: {
+     *     // ... data to create a UsageMonthly
+     *   }
+     * })
+     * 
+     */
+    create<T extends UsageMonthlyCreateArgs>(args: SelectSubset<T, UsageMonthlyCreateArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UsageMonthlies.
+     * @param {UsageMonthlyCreateManyArgs} args - Arguments to create many UsageMonthlies.
+     * @example
+     * // Create many UsageMonthlies
+     * const usageMonthly = await prisma.usageMonthly.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UsageMonthlyCreateManyArgs>(args?: SelectSubset<T, UsageMonthlyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UsageMonthlies and returns the data saved in the database.
+     * @param {UsageMonthlyCreateManyAndReturnArgs} args - Arguments to create many UsageMonthlies.
+     * @example
+     * // Create many UsageMonthlies
+     * const usageMonthly = await prisma.usageMonthly.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UsageMonthlies and only return the `id`
+     * const usageMonthlyWithIdOnly = await prisma.usageMonthly.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UsageMonthlyCreateManyAndReturnArgs>(args?: SelectSubset<T, UsageMonthlyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UsageMonthly.
+     * @param {UsageMonthlyDeleteArgs} args - Arguments to delete one UsageMonthly.
+     * @example
+     * // Delete one UsageMonthly
+     * const UsageMonthly = await prisma.usageMonthly.delete({
+     *   where: {
+     *     // ... filter to delete one UsageMonthly
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UsageMonthlyDeleteArgs>(args: SelectSubset<T, UsageMonthlyDeleteArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UsageMonthly.
+     * @param {UsageMonthlyUpdateArgs} args - Arguments to update one UsageMonthly.
+     * @example
+     * // Update one UsageMonthly
+     * const usageMonthly = await prisma.usageMonthly.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UsageMonthlyUpdateArgs>(args: SelectSubset<T, UsageMonthlyUpdateArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UsageMonthlies.
+     * @param {UsageMonthlyDeleteManyArgs} args - Arguments to filter UsageMonthlies to delete.
+     * @example
+     * // Delete a few UsageMonthlies
+     * const { count } = await prisma.usageMonthly.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UsageMonthlyDeleteManyArgs>(args?: SelectSubset<T, UsageMonthlyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UsageMonthlies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UsageMonthlies
+     * const usageMonthly = await prisma.usageMonthly.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UsageMonthlyUpdateManyArgs>(args: SelectSubset<T, UsageMonthlyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UsageMonthlies and returns the data updated in the database.
+     * @param {UsageMonthlyUpdateManyAndReturnArgs} args - Arguments to update many UsageMonthlies.
+     * @example
+     * // Update many UsageMonthlies
+     * const usageMonthly = await prisma.usageMonthly.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UsageMonthlies and only return the `id`
+     * const usageMonthlyWithIdOnly = await prisma.usageMonthly.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UsageMonthlyUpdateManyAndReturnArgs>(args: SelectSubset<T, UsageMonthlyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UsageMonthly.
+     * @param {UsageMonthlyUpsertArgs} args - Arguments to update or create a UsageMonthly.
+     * @example
+     * // Update or create a UsageMonthly
+     * const usageMonthly = await prisma.usageMonthly.upsert({
+     *   create: {
+     *     // ... data to create a UsageMonthly
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UsageMonthly we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UsageMonthlyUpsertArgs>(args: SelectSubset<T, UsageMonthlyUpsertArgs<ExtArgs>>): Prisma__UsageMonthlyClient<$Result.GetResult<Prisma.$UsageMonthlyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UsageMonthlies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyCountArgs} args - Arguments to filter UsageMonthlies to count.
+     * @example
+     * // Count the number of UsageMonthlies
+     * const count = await prisma.usageMonthly.count({
+     *   where: {
+     *     // ... the filter for the UsageMonthlies we want to count
+     *   }
+     * })
+    **/
+    count<T extends UsageMonthlyCountArgs>(
+      args?: Subset<T, UsageMonthlyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UsageMonthlyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UsageMonthly.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UsageMonthlyAggregateArgs>(args: Subset<T, UsageMonthlyAggregateArgs>): Prisma.PrismaPromise<GetUsageMonthlyAggregateType<T>>
+
+    /**
+     * Group by UsageMonthly.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsageMonthlyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UsageMonthlyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UsageMonthlyGroupByArgs['orderBy'] }
+        : { orderBy?: UsageMonthlyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UsageMonthlyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsageMonthlyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UsageMonthly model
+   */
+  readonly fields: UsageMonthlyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UsageMonthly.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UsageMonthlyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UsageMonthly model
+   */
+  interface UsageMonthlyFieldRefs {
+    readonly id: FieldRef<"UsageMonthly", 'String'>
+    readonly userId: FieldRef<"UsageMonthly", 'String'>
+    readonly monthKey: FieldRef<"UsageMonthly", 'String'>
+    readonly optimizedProducts: FieldRef<"UsageMonthly", 'Int'>
+    readonly estimatedCostCents: FieldRef<"UsageMonthly", 'Int'>
+    readonly createdAt: FieldRef<"UsageMonthly", 'DateTime'>
+    readonly updatedAt: FieldRef<"UsageMonthly", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UsageMonthly findUnique
+   */
+  export type UsageMonthlyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * Filter, which UsageMonthly to fetch.
+     */
+    where: UsageMonthlyWhereUniqueInput
+  }
+
+  /**
+   * UsageMonthly findUniqueOrThrow
+   */
+  export type UsageMonthlyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * Filter, which UsageMonthly to fetch.
+     */
+    where: UsageMonthlyWhereUniqueInput
+  }
+
+  /**
+   * UsageMonthly findFirst
+   */
+  export type UsageMonthlyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * Filter, which UsageMonthly to fetch.
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UsageMonthlies to fetch.
+     */
+    orderBy?: UsageMonthlyOrderByWithRelationInput | UsageMonthlyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UsageMonthlies.
+     */
+    cursor?: UsageMonthlyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UsageMonthlies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UsageMonthlies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UsageMonthlies.
+     */
+    distinct?: UsageMonthlyScalarFieldEnum | UsageMonthlyScalarFieldEnum[]
+  }
+
+  /**
+   * UsageMonthly findFirstOrThrow
+   */
+  export type UsageMonthlyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * Filter, which UsageMonthly to fetch.
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UsageMonthlies to fetch.
+     */
+    orderBy?: UsageMonthlyOrderByWithRelationInput | UsageMonthlyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UsageMonthlies.
+     */
+    cursor?: UsageMonthlyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UsageMonthlies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UsageMonthlies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UsageMonthlies.
+     */
+    distinct?: UsageMonthlyScalarFieldEnum | UsageMonthlyScalarFieldEnum[]
+  }
+
+  /**
+   * UsageMonthly findMany
+   */
+  export type UsageMonthlyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * Filter, which UsageMonthlies to fetch.
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UsageMonthlies to fetch.
+     */
+    orderBy?: UsageMonthlyOrderByWithRelationInput | UsageMonthlyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UsageMonthlies.
+     */
+    cursor?: UsageMonthlyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UsageMonthlies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UsageMonthlies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UsageMonthlies.
+     */
+    distinct?: UsageMonthlyScalarFieldEnum | UsageMonthlyScalarFieldEnum[]
+  }
+
+  /**
+   * UsageMonthly create
+   */
+  export type UsageMonthlyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UsageMonthly.
+     */
+    data: XOR<UsageMonthlyCreateInput, UsageMonthlyUncheckedCreateInput>
+  }
+
+  /**
+   * UsageMonthly createMany
+   */
+  export type UsageMonthlyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UsageMonthlies.
+     */
+    data: UsageMonthlyCreateManyInput | UsageMonthlyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UsageMonthly createManyAndReturn
+   */
+  export type UsageMonthlyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * The data used to create many UsageMonthlies.
+     */
+    data: UsageMonthlyCreateManyInput | UsageMonthlyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UsageMonthly update
+   */
+  export type UsageMonthlyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UsageMonthly.
+     */
+    data: XOR<UsageMonthlyUpdateInput, UsageMonthlyUncheckedUpdateInput>
+    /**
+     * Choose, which UsageMonthly to update.
+     */
+    where: UsageMonthlyWhereUniqueInput
+  }
+
+  /**
+   * UsageMonthly updateMany
+   */
+  export type UsageMonthlyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UsageMonthlies.
+     */
+    data: XOR<UsageMonthlyUpdateManyMutationInput, UsageMonthlyUncheckedUpdateManyInput>
+    /**
+     * Filter which UsageMonthlies to update
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * Limit how many UsageMonthlies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UsageMonthly updateManyAndReturn
+   */
+  export type UsageMonthlyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * The data used to update UsageMonthlies.
+     */
+    data: XOR<UsageMonthlyUpdateManyMutationInput, UsageMonthlyUncheckedUpdateManyInput>
+    /**
+     * Filter which UsageMonthlies to update
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * Limit how many UsageMonthlies to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UsageMonthly upsert
+   */
+  export type UsageMonthlyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UsageMonthly to update in case it exists.
+     */
+    where: UsageMonthlyWhereUniqueInput
+    /**
+     * In case the UsageMonthly found by the `where` argument doesn't exist, create a new UsageMonthly with this data.
+     */
+    create: XOR<UsageMonthlyCreateInput, UsageMonthlyUncheckedCreateInput>
+    /**
+     * In case the UsageMonthly was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UsageMonthlyUpdateInput, UsageMonthlyUncheckedUpdateInput>
+  }
+
+  /**
+   * UsageMonthly delete
+   */
+  export type UsageMonthlyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+    /**
+     * Filter which UsageMonthly to delete.
+     */
+    where: UsageMonthlyWhereUniqueInput
+  }
+
+  /**
+   * UsageMonthly deleteMany
+   */
+  export type UsageMonthlyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UsageMonthlies to delete
+     */
+    where?: UsageMonthlyWhereInput
+    /**
+     * Limit how many UsageMonthlies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UsageMonthly without action
+   */
+  export type UsageMonthlyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsageMonthly
+     */
+    select?: UsageMonthlySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsageMonthly
+     */
+    omit?: UsageMonthlyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsageMonthlyInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6908,7 +10617,8 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     passwordHash: 'passwordHash',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    plan: 'plan'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6952,6 +10662,30 @@ export namespace Prisma {
   export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
 
 
+  export const CollectionPageScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    originalDescription: 'originalDescription',
+    createdAt: 'createdAt',
+    projectId: 'projectId'
+  };
+
+  export type CollectionPageScalarFieldEnum = (typeof CollectionPageScalarFieldEnum)[keyof typeof CollectionPageScalarFieldEnum]
+
+
+  export const CollectionGenerationScalarFieldEnum: {
+    id: 'id',
+    optimizedTitle: 'optimizedTitle',
+    optimizedDescription: 'optimizedDescription',
+    seoKeywords: 'seoKeywords',
+    seoScore: 'seoScore',
+    createdAt: 'createdAt',
+    collectionPageId: 'collectionPageId'
+  };
+
+  export type CollectionGenerationScalarFieldEnum = (typeof CollectionGenerationScalarFieldEnum)[keyof typeof CollectionGenerationScalarFieldEnum]
+
+
   export const JobScalarFieldEnum: {
     id: 'id',
     status: 'status',
@@ -6962,6 +10696,19 @@ export namespace Prisma {
   };
 
   export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+  export const UsageMonthlyScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    monthKey: 'monthKey',
+    optimizedProducts: 'optimizedProducts',
+    estimatedCostCents: 'estimatedCostCents',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UsageMonthlyScalarFieldEnum = (typeof UsageMonthlyScalarFieldEnum)[keyof typeof UsageMonthlyScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7038,6 +10785,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'SubscriptionPlan'
+   */
+  export type EnumSubscriptionPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionPlan'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionPlan[]'
+   */
+  export type ListEnumSubscriptionPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionPlan[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7104,7 +10865,9 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
+    plan?: EnumSubscriptionPlanFilter<"User"> | $Enums.SubscriptionPlan
     projects?: ProjectListRelationFilter
+    usageMonthly?: UsageMonthlyListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7112,7 +10875,9 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
+    plan?: SortOrder
     projects?: ProjectOrderByRelationAggregateInput
+    usageMonthly?: UsageMonthlyOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7123,7 +10888,9 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
+    plan?: EnumSubscriptionPlanFilter<"User"> | $Enums.SubscriptionPlan
     projects?: ProjectListRelationFilter
+    usageMonthly?: UsageMonthlyListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7131,6 +10898,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
+    plan?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -7144,6 +10912,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    plan?: EnumSubscriptionPlanWithAggregatesFilter<"User"> | $Enums.SubscriptionPlan
   }
 
   export type ProjectWhereInput = {
@@ -7156,6 +10925,7 @@ export namespace Prisma {
     userId?: StringFilter<"Project"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     products?: ProductListRelationFilter
+    collectionPages?: CollectionPageListRelationFilter
     jobs?: JobListRelationFilter
   }
 
@@ -7166,6 +10936,7 @@ export namespace Prisma {
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
+    collectionPages?: CollectionPageOrderByRelationAggregateInput
     jobs?: JobOrderByRelationAggregateInput
   }
 
@@ -7179,6 +10950,7 @@ export namespace Prisma {
     userId?: StringFilter<"Project"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     products?: ProductListRelationFilter
+    collectionPages?: CollectionPageListRelationFilter
     jobs?: JobListRelationFilter
   }, "id">
 
@@ -7349,6 +11121,131 @@ export namespace Prisma {
     productId?: StringWithAggregatesFilter<"Generation"> | string
   }
 
+  export type CollectionPageWhereInput = {
+    AND?: CollectionPageWhereInput | CollectionPageWhereInput[]
+    OR?: CollectionPageWhereInput[]
+    NOT?: CollectionPageWhereInput | CollectionPageWhereInput[]
+    id?: StringFilter<"CollectionPage"> | string
+    label?: StringFilter<"CollectionPage"> | string
+    originalDescription?: StringFilter<"CollectionPage"> | string
+    createdAt?: DateTimeFilter<"CollectionPage"> | Date | string
+    projectId?: StringFilter<"CollectionPage"> | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    generation?: XOR<CollectionGenerationNullableScalarRelationFilter, CollectionGenerationWhereInput> | null
+  }
+
+  export type CollectionPageOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    originalDescription?: SortOrder
+    createdAt?: SortOrder
+    projectId?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+    generation?: CollectionGenerationOrderByWithRelationInput
+  }
+
+  export type CollectionPageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CollectionPageWhereInput | CollectionPageWhereInput[]
+    OR?: CollectionPageWhereInput[]
+    NOT?: CollectionPageWhereInput | CollectionPageWhereInput[]
+    label?: StringFilter<"CollectionPage"> | string
+    originalDescription?: StringFilter<"CollectionPage"> | string
+    createdAt?: DateTimeFilter<"CollectionPage"> | Date | string
+    projectId?: StringFilter<"CollectionPage"> | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    generation?: XOR<CollectionGenerationNullableScalarRelationFilter, CollectionGenerationWhereInput> | null
+  }, "id">
+
+  export type CollectionPageOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    originalDescription?: SortOrder
+    createdAt?: SortOrder
+    projectId?: SortOrder
+    _count?: CollectionPageCountOrderByAggregateInput
+    _max?: CollectionPageMaxOrderByAggregateInput
+    _min?: CollectionPageMinOrderByAggregateInput
+  }
+
+  export type CollectionPageScalarWhereWithAggregatesInput = {
+    AND?: CollectionPageScalarWhereWithAggregatesInput | CollectionPageScalarWhereWithAggregatesInput[]
+    OR?: CollectionPageScalarWhereWithAggregatesInput[]
+    NOT?: CollectionPageScalarWhereWithAggregatesInput | CollectionPageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CollectionPage"> | string
+    label?: StringWithAggregatesFilter<"CollectionPage"> | string
+    originalDescription?: StringWithAggregatesFilter<"CollectionPage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CollectionPage"> | Date | string
+    projectId?: StringWithAggregatesFilter<"CollectionPage"> | string
+  }
+
+  export type CollectionGenerationWhereInput = {
+    AND?: CollectionGenerationWhereInput | CollectionGenerationWhereInput[]
+    OR?: CollectionGenerationWhereInput[]
+    NOT?: CollectionGenerationWhereInput | CollectionGenerationWhereInput[]
+    id?: StringFilter<"CollectionGeneration"> | string
+    optimizedTitle?: StringFilter<"CollectionGeneration"> | string
+    optimizedDescription?: StringFilter<"CollectionGeneration"> | string
+    seoKeywords?: StringFilter<"CollectionGeneration"> | string
+    seoScore?: IntFilter<"CollectionGeneration"> | number
+    createdAt?: DateTimeFilter<"CollectionGeneration"> | Date | string
+    collectionPageId?: StringFilter<"CollectionGeneration"> | string
+    collectionPage?: XOR<CollectionPageScalarRelationFilter, CollectionPageWhereInput>
+  }
+
+  export type CollectionGenerationOrderByWithRelationInput = {
+    id?: SortOrder
+    optimizedTitle?: SortOrder
+    optimizedDescription?: SortOrder
+    seoKeywords?: SortOrder
+    seoScore?: SortOrder
+    createdAt?: SortOrder
+    collectionPageId?: SortOrder
+    collectionPage?: CollectionPageOrderByWithRelationInput
+  }
+
+  export type CollectionGenerationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    collectionPageId?: string
+    AND?: CollectionGenerationWhereInput | CollectionGenerationWhereInput[]
+    OR?: CollectionGenerationWhereInput[]
+    NOT?: CollectionGenerationWhereInput | CollectionGenerationWhereInput[]
+    optimizedTitle?: StringFilter<"CollectionGeneration"> | string
+    optimizedDescription?: StringFilter<"CollectionGeneration"> | string
+    seoKeywords?: StringFilter<"CollectionGeneration"> | string
+    seoScore?: IntFilter<"CollectionGeneration"> | number
+    createdAt?: DateTimeFilter<"CollectionGeneration"> | Date | string
+    collectionPage?: XOR<CollectionPageScalarRelationFilter, CollectionPageWhereInput>
+  }, "id" | "collectionPageId">
+
+  export type CollectionGenerationOrderByWithAggregationInput = {
+    id?: SortOrder
+    optimizedTitle?: SortOrder
+    optimizedDescription?: SortOrder
+    seoKeywords?: SortOrder
+    seoScore?: SortOrder
+    createdAt?: SortOrder
+    collectionPageId?: SortOrder
+    _count?: CollectionGenerationCountOrderByAggregateInput
+    _avg?: CollectionGenerationAvgOrderByAggregateInput
+    _max?: CollectionGenerationMaxOrderByAggregateInput
+    _min?: CollectionGenerationMinOrderByAggregateInput
+    _sum?: CollectionGenerationSumOrderByAggregateInput
+  }
+
+  export type CollectionGenerationScalarWhereWithAggregatesInput = {
+    AND?: CollectionGenerationScalarWhereWithAggregatesInput | CollectionGenerationScalarWhereWithAggregatesInput[]
+    OR?: CollectionGenerationScalarWhereWithAggregatesInput[]
+    NOT?: CollectionGenerationScalarWhereWithAggregatesInput | CollectionGenerationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CollectionGeneration"> | string
+    optimizedTitle?: StringWithAggregatesFilter<"CollectionGeneration"> | string
+    optimizedDescription?: StringWithAggregatesFilter<"CollectionGeneration"> | string
+    seoKeywords?: StringWithAggregatesFilter<"CollectionGeneration"> | string
+    seoScore?: IntWithAggregatesFilter<"CollectionGeneration"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CollectionGeneration"> | Date | string
+    collectionPageId?: StringWithAggregatesFilter<"CollectionGeneration"> | string
+  }
+
   export type JobWhereInput = {
     AND?: JobWhereInput | JobWhereInput[]
     OR?: JobWhereInput[]
@@ -7411,12 +11308,82 @@ export namespace Prisma {
     projectId?: StringWithAggregatesFilter<"Job"> | string
   }
 
+  export type UsageMonthlyWhereInput = {
+    AND?: UsageMonthlyWhereInput | UsageMonthlyWhereInput[]
+    OR?: UsageMonthlyWhereInput[]
+    NOT?: UsageMonthlyWhereInput | UsageMonthlyWhereInput[]
+    id?: StringFilter<"UsageMonthly"> | string
+    userId?: StringFilter<"UsageMonthly"> | string
+    monthKey?: StringFilter<"UsageMonthly"> | string
+    optimizedProducts?: IntFilter<"UsageMonthly"> | number
+    estimatedCostCents?: IntFilter<"UsageMonthly"> | number
+    createdAt?: DateTimeFilter<"UsageMonthly"> | Date | string
+    updatedAt?: DateTimeFilter<"UsageMonthly"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UsageMonthlyOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    monthKey?: SortOrder
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UsageMonthlyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_monthKey?: UsageMonthlyUserIdMonthKeyCompoundUniqueInput
+    AND?: UsageMonthlyWhereInput | UsageMonthlyWhereInput[]
+    OR?: UsageMonthlyWhereInput[]
+    NOT?: UsageMonthlyWhereInput | UsageMonthlyWhereInput[]
+    userId?: StringFilter<"UsageMonthly"> | string
+    monthKey?: StringFilter<"UsageMonthly"> | string
+    optimizedProducts?: IntFilter<"UsageMonthly"> | number
+    estimatedCostCents?: IntFilter<"UsageMonthly"> | number
+    createdAt?: DateTimeFilter<"UsageMonthly"> | Date | string
+    updatedAt?: DateTimeFilter<"UsageMonthly"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_monthKey">
+
+  export type UsageMonthlyOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    monthKey?: SortOrder
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UsageMonthlyCountOrderByAggregateInput
+    _avg?: UsageMonthlyAvgOrderByAggregateInput
+    _max?: UsageMonthlyMaxOrderByAggregateInput
+    _min?: UsageMonthlyMinOrderByAggregateInput
+    _sum?: UsageMonthlySumOrderByAggregateInput
+  }
+
+  export type UsageMonthlyScalarWhereWithAggregatesInput = {
+    AND?: UsageMonthlyScalarWhereWithAggregatesInput | UsageMonthlyScalarWhereWithAggregatesInput[]
+    OR?: UsageMonthlyScalarWhereWithAggregatesInput[]
+    NOT?: UsageMonthlyScalarWhereWithAggregatesInput | UsageMonthlyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UsageMonthly"> | string
+    userId?: StringWithAggregatesFilter<"UsageMonthly"> | string
+    monthKey?: StringWithAggregatesFilter<"UsageMonthly"> | string
+    optimizedProducts?: IntWithAggregatesFilter<"UsageMonthly"> | number
+    estimatedCostCents?: IntWithAggregatesFilter<"UsageMonthly"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UsageMonthly"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UsageMonthly"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
     passwordHash: string
     createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
     projects?: ProjectCreateNestedManyWithoutUserInput
+    usageMonthly?: UsageMonthlyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7424,7 +11391,9 @@ export namespace Prisma {
     email: string
     passwordHash: string
     createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    usageMonthly?: UsageMonthlyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7432,7 +11401,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
     projects?: ProjectUpdateManyWithoutUserNestedInput
+    usageMonthly?: UsageMonthlyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7440,7 +11411,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    usageMonthly?: UsageMonthlyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7448,6 +11421,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
   }
 
   export type UserUpdateManyMutationInput = {
@@ -7455,6 +11429,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -7462,6 +11437,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
   }
 
   export type ProjectCreateInput = {
@@ -7470,6 +11446,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProjectsInput
     products?: ProductCreateNestedManyWithoutProjectInput
+    collectionPages?: CollectionPageCreateNestedManyWithoutProjectInput
     jobs?: JobCreateNestedManyWithoutProjectInput
   }
 
@@ -7479,6 +11456,7 @@ export namespace Prisma {
     createdAt?: Date | string
     userId: string
     products?: ProductUncheckedCreateNestedManyWithoutProjectInput
+    collectionPages?: CollectionPageUncheckedCreateNestedManyWithoutProjectInput
     jobs?: JobUncheckedCreateNestedManyWithoutProjectInput
   }
 
@@ -7488,6 +11466,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProjectsNestedInput
     products?: ProductUpdateManyWithoutProjectNestedInput
+    collectionPages?: CollectionPageUpdateManyWithoutProjectNestedInput
     jobs?: JobUpdateManyWithoutProjectNestedInput
   }
 
@@ -7497,6 +11476,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     products?: ProductUncheckedUpdateManyWithoutProjectNestedInput
+    collectionPages?: CollectionPageUncheckedUpdateManyWithoutProjectNestedInput
     jobs?: JobUncheckedUpdateManyWithoutProjectNestedInput
   }
 
@@ -7676,6 +11656,134 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type CollectionPageCreateInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    project: ProjectCreateNestedOneWithoutCollectionPagesInput
+    generation?: CollectionGenerationCreateNestedOneWithoutCollectionPageInput
+  }
+
+  export type CollectionPageUncheckedCreateInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    projectId: string
+    generation?: CollectionGenerationUncheckedCreateNestedOneWithoutCollectionPageInput
+  }
+
+  export type CollectionPageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutCollectionPagesNestedInput
+    generation?: CollectionGenerationUpdateOneWithoutCollectionPageNestedInput
+  }
+
+  export type CollectionPageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    generation?: CollectionGenerationUncheckedUpdateOneWithoutCollectionPageNestedInput
+  }
+
+  export type CollectionPageCreateManyInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    projectId: string
+  }
+
+  export type CollectionPageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CollectionPageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CollectionGenerationCreateInput = {
+    id?: string
+    optimizedTitle: string
+    optimizedDescription: string
+    seoKeywords: string
+    seoScore: number
+    createdAt?: Date | string
+    collectionPage: CollectionPageCreateNestedOneWithoutGenerationInput
+  }
+
+  export type CollectionGenerationUncheckedCreateInput = {
+    id?: string
+    optimizedTitle: string
+    optimizedDescription: string
+    seoKeywords: string
+    seoScore: number
+    createdAt?: Date | string
+    collectionPageId: string
+  }
+
+  export type CollectionGenerationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    optimizedTitle?: StringFieldUpdateOperationsInput | string
+    optimizedDescription?: StringFieldUpdateOperationsInput | string
+    seoKeywords?: StringFieldUpdateOperationsInput | string
+    seoScore?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    collectionPage?: CollectionPageUpdateOneRequiredWithoutGenerationNestedInput
+  }
+
+  export type CollectionGenerationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    optimizedTitle?: StringFieldUpdateOperationsInput | string
+    optimizedDescription?: StringFieldUpdateOperationsInput | string
+    seoKeywords?: StringFieldUpdateOperationsInput | string
+    seoScore?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    collectionPageId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CollectionGenerationCreateManyInput = {
+    id?: string
+    optimizedTitle: string
+    optimizedDescription: string
+    seoKeywords: string
+    seoScore: number
+    createdAt?: Date | string
+    collectionPageId: string
+  }
+
+  export type CollectionGenerationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    optimizedTitle?: StringFieldUpdateOperationsInput | string
+    optimizedDescription?: StringFieldUpdateOperationsInput | string
+    seoKeywords?: StringFieldUpdateOperationsInput | string
+    seoScore?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CollectionGenerationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    optimizedTitle?: StringFieldUpdateOperationsInput | string
+    optimizedDescription?: StringFieldUpdateOperationsInput | string
+    seoKeywords?: StringFieldUpdateOperationsInput | string
+    seoScore?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    collectionPageId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type JobCreateInput = {
     id?: string
     status?: $Enums.JobStatus
@@ -7738,6 +11846,75 @@ export namespace Prisma {
     projectId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UsageMonthlyCreateInput = {
+    id?: string
+    monthKey: string
+    optimizedProducts?: number
+    estimatedCostCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUsageMonthlyInput
+  }
+
+  export type UsageMonthlyUncheckedCreateInput = {
+    id?: string
+    userId: string
+    monthKey: string
+    optimizedProducts?: number
+    estimatedCostCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UsageMonthlyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUsageMonthlyNestedInput
+  }
+
+  export type UsageMonthlyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsageMonthlyCreateManyInput = {
+    id?: string
+    userId: string
+    monthKey: string
+    optimizedProducts?: number
+    estimatedCostCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UsageMonthlyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsageMonthlyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7764,13 +11941,30 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type EnumSubscriptionPlanFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionPlan | EnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionPlanFilter<$PrismaModel> | $Enums.SubscriptionPlan
+  }
+
   export type ProjectListRelationFilter = {
     every?: ProjectWhereInput
     some?: ProjectWhereInput
     none?: ProjectWhereInput
   }
 
+  export type UsageMonthlyListRelationFilter = {
+    every?: UsageMonthlyWhereInput
+    some?: UsageMonthlyWhereInput
+    none?: UsageMonthlyWhereInput
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UsageMonthlyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7779,6 +11973,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
+    plan?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -7786,6 +11981,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
+    plan?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -7793,6 +11989,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
+    plan?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7827,6 +12024,16 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumSubscriptionPlanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionPlan | EnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionPlanWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionPlan
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -7838,6 +12045,12 @@ export namespace Prisma {
     none?: ProductWhereInput
   }
 
+  export type CollectionPageListRelationFilter = {
+    every?: CollectionPageWhereInput
+    some?: CollectionPageWhereInput
+    none?: CollectionPageWhereInput
+  }
+
   export type JobListRelationFilter = {
     every?: JobWhereInput
     some?: JobWhereInput
@@ -7845,6 +12058,10 @@ export namespace Prisma {
   }
 
   export type ProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CollectionPageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8109,6 +12326,78 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type CollectionGenerationNullableScalarRelationFilter = {
+    is?: CollectionGenerationWhereInput | null
+    isNot?: CollectionGenerationWhereInput | null
+  }
+
+  export type CollectionPageCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    originalDescription?: SortOrder
+    createdAt?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type CollectionPageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    originalDescription?: SortOrder
+    createdAt?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type CollectionPageMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    originalDescription?: SortOrder
+    createdAt?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type CollectionPageScalarRelationFilter = {
+    is?: CollectionPageWhereInput
+    isNot?: CollectionPageWhereInput
+  }
+
+  export type CollectionGenerationCountOrderByAggregateInput = {
+    id?: SortOrder
+    optimizedTitle?: SortOrder
+    optimizedDescription?: SortOrder
+    seoKeywords?: SortOrder
+    seoScore?: SortOrder
+    createdAt?: SortOrder
+    collectionPageId?: SortOrder
+  }
+
+  export type CollectionGenerationAvgOrderByAggregateInput = {
+    seoScore?: SortOrder
+  }
+
+  export type CollectionGenerationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    optimizedTitle?: SortOrder
+    optimizedDescription?: SortOrder
+    seoKeywords?: SortOrder
+    seoScore?: SortOrder
+    createdAt?: SortOrder
+    collectionPageId?: SortOrder
+  }
+
+  export type CollectionGenerationMinOrderByAggregateInput = {
+    id?: SortOrder
+    optimizedTitle?: SortOrder
+    optimizedDescription?: SortOrder
+    seoKeywords?: SortOrder
+    seoScore?: SortOrder
+    createdAt?: SortOrder
+    collectionPageId?: SortOrder
+  }
+
+  export type CollectionGenerationSumOrderByAggregateInput = {
+    seoScore?: SortOrder
+  }
+
   export type EnumJobStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.JobStatus | EnumJobStatusFieldRefInput<$PrismaModel>
     in?: $Enums.JobStatus[] | ListEnumJobStatusFieldRefInput<$PrismaModel>
@@ -8161,11 +12450,63 @@ export namespace Prisma {
     _max?: NestedEnumJobStatusFilter<$PrismaModel>
   }
 
+  export type UsageMonthlyUserIdMonthKeyCompoundUniqueInput = {
+    userId: string
+    monthKey: string
+  }
+
+  export type UsageMonthlyCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    monthKey?: SortOrder
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UsageMonthlyAvgOrderByAggregateInput = {
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+  }
+
+  export type UsageMonthlyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    monthKey?: SortOrder
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UsageMonthlyMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    monthKey?: SortOrder
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UsageMonthlySumOrderByAggregateInput = {
+    optimizedProducts?: SortOrder
+    estimatedCostCents?: SortOrder
+  }
+
   export type ProjectCreateNestedManyWithoutUserInput = {
     create?: XOR<ProjectCreateWithoutUserInput, ProjectUncheckedCreateWithoutUserInput> | ProjectCreateWithoutUserInput[] | ProjectUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutUserInput | ProjectCreateOrConnectWithoutUserInput[]
     createMany?: ProjectCreateManyUserInputEnvelope
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type UsageMonthlyCreateNestedManyWithoutUserInput = {
+    create?: XOR<UsageMonthlyCreateWithoutUserInput, UsageMonthlyUncheckedCreateWithoutUserInput> | UsageMonthlyCreateWithoutUserInput[] | UsageMonthlyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UsageMonthlyCreateOrConnectWithoutUserInput | UsageMonthlyCreateOrConnectWithoutUserInput[]
+    createMany?: UsageMonthlyCreateManyUserInputEnvelope
+    connect?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
   }
 
   export type ProjectUncheckedCreateNestedManyWithoutUserInput = {
@@ -8175,12 +12516,23 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
+  export type UsageMonthlyUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UsageMonthlyCreateWithoutUserInput, UsageMonthlyUncheckedCreateWithoutUserInput> | UsageMonthlyCreateWithoutUserInput[] | UsageMonthlyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UsageMonthlyCreateOrConnectWithoutUserInput | UsageMonthlyCreateOrConnectWithoutUserInput[]
+    createMany?: UsageMonthlyCreateManyUserInputEnvelope
+    connect?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type EnumSubscriptionPlanFieldUpdateOperationsInput = {
+    set?: $Enums.SubscriptionPlan
   }
 
   export type ProjectUpdateManyWithoutUserNestedInput = {
@@ -8197,6 +12549,20 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
+  export type UsageMonthlyUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UsageMonthlyCreateWithoutUserInput, UsageMonthlyUncheckedCreateWithoutUserInput> | UsageMonthlyCreateWithoutUserInput[] | UsageMonthlyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UsageMonthlyCreateOrConnectWithoutUserInput | UsageMonthlyCreateOrConnectWithoutUserInput[]
+    upsert?: UsageMonthlyUpsertWithWhereUniqueWithoutUserInput | UsageMonthlyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UsageMonthlyCreateManyUserInputEnvelope
+    set?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    disconnect?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    delete?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    connect?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    update?: UsageMonthlyUpdateWithWhereUniqueWithoutUserInput | UsageMonthlyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UsageMonthlyUpdateManyWithWhereWithoutUserInput | UsageMonthlyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UsageMonthlyScalarWhereInput | UsageMonthlyScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ProjectCreateWithoutUserInput, ProjectUncheckedCreateWithoutUserInput> | ProjectCreateWithoutUserInput[] | ProjectUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutUserInput | ProjectCreateOrConnectWithoutUserInput[]
@@ -8209,6 +12575,20 @@ export namespace Prisma {
     update?: ProjectUpdateWithWhereUniqueWithoutUserInput | ProjectUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProjectUpdateManyWithWhereWithoutUserInput | ProjectUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type UsageMonthlyUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UsageMonthlyCreateWithoutUserInput, UsageMonthlyUncheckedCreateWithoutUserInput> | UsageMonthlyCreateWithoutUserInput[] | UsageMonthlyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UsageMonthlyCreateOrConnectWithoutUserInput | UsageMonthlyCreateOrConnectWithoutUserInput[]
+    upsert?: UsageMonthlyUpsertWithWhereUniqueWithoutUserInput | UsageMonthlyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UsageMonthlyCreateManyUserInputEnvelope
+    set?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    disconnect?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    delete?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    connect?: UsageMonthlyWhereUniqueInput | UsageMonthlyWhereUniqueInput[]
+    update?: UsageMonthlyUpdateWithWhereUniqueWithoutUserInput | UsageMonthlyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UsageMonthlyUpdateManyWithWhereWithoutUserInput | UsageMonthlyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UsageMonthlyScalarWhereInput | UsageMonthlyScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutProjectsInput = {
@@ -8224,6 +12604,13 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
+  export type CollectionPageCreateNestedManyWithoutProjectInput = {
+    create?: XOR<CollectionPageCreateWithoutProjectInput, CollectionPageUncheckedCreateWithoutProjectInput> | CollectionPageCreateWithoutProjectInput[] | CollectionPageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: CollectionPageCreateOrConnectWithoutProjectInput | CollectionPageCreateOrConnectWithoutProjectInput[]
+    createMany?: CollectionPageCreateManyProjectInputEnvelope
+    connect?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+  }
+
   export type JobCreateNestedManyWithoutProjectInput = {
     create?: XOR<JobCreateWithoutProjectInput, JobUncheckedCreateWithoutProjectInput> | JobCreateWithoutProjectInput[] | JobUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: JobCreateOrConnectWithoutProjectInput | JobCreateOrConnectWithoutProjectInput[]
@@ -8236,6 +12623,13 @@ export namespace Prisma {
     connectOrCreate?: ProductCreateOrConnectWithoutProjectInput | ProductCreateOrConnectWithoutProjectInput[]
     createMany?: ProductCreateManyProjectInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type CollectionPageUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<CollectionPageCreateWithoutProjectInput, CollectionPageUncheckedCreateWithoutProjectInput> | CollectionPageCreateWithoutProjectInput[] | CollectionPageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: CollectionPageCreateOrConnectWithoutProjectInput | CollectionPageCreateOrConnectWithoutProjectInput[]
+    createMany?: CollectionPageCreateManyProjectInputEnvelope
+    connect?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
   }
 
   export type JobUncheckedCreateNestedManyWithoutProjectInput = {
@@ -8267,6 +12661,20 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type CollectionPageUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<CollectionPageCreateWithoutProjectInput, CollectionPageUncheckedCreateWithoutProjectInput> | CollectionPageCreateWithoutProjectInput[] | CollectionPageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: CollectionPageCreateOrConnectWithoutProjectInput | CollectionPageCreateOrConnectWithoutProjectInput[]
+    upsert?: CollectionPageUpsertWithWhereUniqueWithoutProjectInput | CollectionPageUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: CollectionPageCreateManyProjectInputEnvelope
+    set?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    disconnect?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    delete?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    connect?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    update?: CollectionPageUpdateWithWhereUniqueWithoutProjectInput | CollectionPageUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: CollectionPageUpdateManyWithWhereWithoutProjectInput | CollectionPageUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: CollectionPageScalarWhereInput | CollectionPageScalarWhereInput[]
+  }
+
   export type JobUpdateManyWithoutProjectNestedInput = {
     create?: XOR<JobCreateWithoutProjectInput, JobUncheckedCreateWithoutProjectInput> | JobCreateWithoutProjectInput[] | JobUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: JobCreateOrConnectWithoutProjectInput | JobCreateOrConnectWithoutProjectInput[]
@@ -8293,6 +12701,20 @@ export namespace Prisma {
     update?: ProductUpdateWithWhereUniqueWithoutProjectInput | ProductUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: ProductUpdateManyWithWhereWithoutProjectInput | ProductUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type CollectionPageUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<CollectionPageCreateWithoutProjectInput, CollectionPageUncheckedCreateWithoutProjectInput> | CollectionPageCreateWithoutProjectInput[] | CollectionPageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: CollectionPageCreateOrConnectWithoutProjectInput | CollectionPageCreateOrConnectWithoutProjectInput[]
+    upsert?: CollectionPageUpsertWithWhereUniqueWithoutProjectInput | CollectionPageUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: CollectionPageCreateManyProjectInputEnvelope
+    set?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    disconnect?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    delete?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    connect?: CollectionPageWhereUniqueInput | CollectionPageWhereUniqueInput[]
+    update?: CollectionPageUpdateWithWhereUniqueWithoutProjectInput | CollectionPageUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: CollectionPageUpdateManyWithWhereWithoutProjectInput | CollectionPageUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: CollectionPageScalarWhereInput | CollectionPageScalarWhereInput[]
   }
 
   export type JobUncheckedUpdateManyWithoutProjectNestedInput = {
@@ -8389,6 +12811,66 @@ export namespace Prisma {
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutGenerationInput, ProductUpdateWithoutGenerationInput>, ProductUncheckedUpdateWithoutGenerationInput>
   }
 
+  export type ProjectCreateNestedOneWithoutCollectionPagesInput = {
+    create?: XOR<ProjectCreateWithoutCollectionPagesInput, ProjectUncheckedCreateWithoutCollectionPagesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutCollectionPagesInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type CollectionGenerationCreateNestedOneWithoutCollectionPageInput = {
+    create?: XOR<CollectionGenerationCreateWithoutCollectionPageInput, CollectionGenerationUncheckedCreateWithoutCollectionPageInput>
+    connectOrCreate?: CollectionGenerationCreateOrConnectWithoutCollectionPageInput
+    connect?: CollectionGenerationWhereUniqueInput
+  }
+
+  export type CollectionGenerationUncheckedCreateNestedOneWithoutCollectionPageInput = {
+    create?: XOR<CollectionGenerationCreateWithoutCollectionPageInput, CollectionGenerationUncheckedCreateWithoutCollectionPageInput>
+    connectOrCreate?: CollectionGenerationCreateOrConnectWithoutCollectionPageInput
+    connect?: CollectionGenerationWhereUniqueInput
+  }
+
+  export type ProjectUpdateOneRequiredWithoutCollectionPagesNestedInput = {
+    create?: XOR<ProjectCreateWithoutCollectionPagesInput, ProjectUncheckedCreateWithoutCollectionPagesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutCollectionPagesInput
+    upsert?: ProjectUpsertWithoutCollectionPagesInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutCollectionPagesInput, ProjectUpdateWithoutCollectionPagesInput>, ProjectUncheckedUpdateWithoutCollectionPagesInput>
+  }
+
+  export type CollectionGenerationUpdateOneWithoutCollectionPageNestedInput = {
+    create?: XOR<CollectionGenerationCreateWithoutCollectionPageInput, CollectionGenerationUncheckedCreateWithoutCollectionPageInput>
+    connectOrCreate?: CollectionGenerationCreateOrConnectWithoutCollectionPageInput
+    upsert?: CollectionGenerationUpsertWithoutCollectionPageInput
+    disconnect?: CollectionGenerationWhereInput | boolean
+    delete?: CollectionGenerationWhereInput | boolean
+    connect?: CollectionGenerationWhereUniqueInput
+    update?: XOR<XOR<CollectionGenerationUpdateToOneWithWhereWithoutCollectionPageInput, CollectionGenerationUpdateWithoutCollectionPageInput>, CollectionGenerationUncheckedUpdateWithoutCollectionPageInput>
+  }
+
+  export type CollectionGenerationUncheckedUpdateOneWithoutCollectionPageNestedInput = {
+    create?: XOR<CollectionGenerationCreateWithoutCollectionPageInput, CollectionGenerationUncheckedCreateWithoutCollectionPageInput>
+    connectOrCreate?: CollectionGenerationCreateOrConnectWithoutCollectionPageInput
+    upsert?: CollectionGenerationUpsertWithoutCollectionPageInput
+    disconnect?: CollectionGenerationWhereInput | boolean
+    delete?: CollectionGenerationWhereInput | boolean
+    connect?: CollectionGenerationWhereUniqueInput
+    update?: XOR<XOR<CollectionGenerationUpdateToOneWithWhereWithoutCollectionPageInput, CollectionGenerationUpdateWithoutCollectionPageInput>, CollectionGenerationUncheckedUpdateWithoutCollectionPageInput>
+  }
+
+  export type CollectionPageCreateNestedOneWithoutGenerationInput = {
+    create?: XOR<CollectionPageCreateWithoutGenerationInput, CollectionPageUncheckedCreateWithoutGenerationInput>
+    connectOrCreate?: CollectionPageCreateOrConnectWithoutGenerationInput
+    connect?: CollectionPageWhereUniqueInput
+  }
+
+  export type CollectionPageUpdateOneRequiredWithoutGenerationNestedInput = {
+    create?: XOR<CollectionPageCreateWithoutGenerationInput, CollectionPageUncheckedCreateWithoutGenerationInput>
+    connectOrCreate?: CollectionPageCreateOrConnectWithoutGenerationInput
+    upsert?: CollectionPageUpsertWithoutGenerationInput
+    connect?: CollectionPageWhereUniqueInput
+    update?: XOR<XOR<CollectionPageUpdateToOneWithWhereWithoutGenerationInput, CollectionPageUpdateWithoutGenerationInput>, CollectionPageUncheckedUpdateWithoutGenerationInput>
+  }
+
   export type ProjectCreateNestedOneWithoutJobsInput = {
     create?: XOR<ProjectCreateWithoutJobsInput, ProjectUncheckedCreateWithoutJobsInput>
     connectOrCreate?: ProjectCreateOrConnectWithoutJobsInput
@@ -8405,6 +12887,20 @@ export namespace Prisma {
     upsert?: ProjectUpsertWithoutJobsInput
     connect?: ProjectWhereUniqueInput
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutJobsInput, ProjectUpdateWithoutJobsInput>, ProjectUncheckedUpdateWithoutJobsInput>
+  }
+
+  export type UserCreateNestedOneWithoutUsageMonthlyInput = {
+    create?: XOR<UserCreateWithoutUsageMonthlyInput, UserUncheckedCreateWithoutUsageMonthlyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUsageMonthlyInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUsageMonthlyNestedInput = {
+    create?: XOR<UserCreateWithoutUsageMonthlyInput, UserUncheckedCreateWithoutUsageMonthlyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUsageMonthlyInput
+    upsert?: UserUpsertWithoutUsageMonthlyInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUsageMonthlyInput, UserUpdateWithoutUsageMonthlyInput>, UserUncheckedUpdateWithoutUsageMonthlyInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8430,6 +12926,13 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedEnumSubscriptionPlanFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionPlan | EnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionPlanFilter<$PrismaModel> | $Enums.SubscriptionPlan
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -8472,6 +12975,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSubscriptionPlanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionPlan | EnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionPlan[] | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionPlanWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionPlan
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -8604,6 +13117,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     products?: ProductCreateNestedManyWithoutProjectInput
+    collectionPages?: CollectionPageCreateNestedManyWithoutProjectInput
     jobs?: JobCreateNestedManyWithoutProjectInput
   }
 
@@ -8612,6 +13126,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutProjectInput
+    collectionPages?: CollectionPageUncheckedCreateNestedManyWithoutProjectInput
     jobs?: JobUncheckedCreateNestedManyWithoutProjectInput
   }
 
@@ -8622,6 +13137,34 @@ export namespace Prisma {
 
   export type ProjectCreateManyUserInputEnvelope = {
     data: ProjectCreateManyUserInput | ProjectCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsageMonthlyCreateWithoutUserInput = {
+    id?: string
+    monthKey: string
+    optimizedProducts?: number
+    estimatedCostCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UsageMonthlyUncheckedCreateWithoutUserInput = {
+    id?: string
+    monthKey: string
+    optimizedProducts?: number
+    estimatedCostCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UsageMonthlyCreateOrConnectWithoutUserInput = {
+    where: UsageMonthlyWhereUniqueInput
+    create: XOR<UsageMonthlyCreateWithoutUserInput, UsageMonthlyUncheckedCreateWithoutUserInput>
+  }
+
+  export type UsageMonthlyCreateManyUserInputEnvelope = {
+    data: UsageMonthlyCreateManyUserInput | UsageMonthlyCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -8651,11 +13194,42 @@ export namespace Prisma {
     userId?: StringFilter<"Project"> | string
   }
 
+  export type UsageMonthlyUpsertWithWhereUniqueWithoutUserInput = {
+    where: UsageMonthlyWhereUniqueInput
+    update: XOR<UsageMonthlyUpdateWithoutUserInput, UsageMonthlyUncheckedUpdateWithoutUserInput>
+    create: XOR<UsageMonthlyCreateWithoutUserInput, UsageMonthlyUncheckedCreateWithoutUserInput>
+  }
+
+  export type UsageMonthlyUpdateWithWhereUniqueWithoutUserInput = {
+    where: UsageMonthlyWhereUniqueInput
+    data: XOR<UsageMonthlyUpdateWithoutUserInput, UsageMonthlyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UsageMonthlyUpdateManyWithWhereWithoutUserInput = {
+    where: UsageMonthlyScalarWhereInput
+    data: XOR<UsageMonthlyUpdateManyMutationInput, UsageMonthlyUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UsageMonthlyScalarWhereInput = {
+    AND?: UsageMonthlyScalarWhereInput | UsageMonthlyScalarWhereInput[]
+    OR?: UsageMonthlyScalarWhereInput[]
+    NOT?: UsageMonthlyScalarWhereInput | UsageMonthlyScalarWhereInput[]
+    id?: StringFilter<"UsageMonthly"> | string
+    userId?: StringFilter<"UsageMonthly"> | string
+    monthKey?: StringFilter<"UsageMonthly"> | string
+    optimizedProducts?: IntFilter<"UsageMonthly"> | number
+    estimatedCostCents?: IntFilter<"UsageMonthly"> | number
+    createdAt?: DateTimeFilter<"UsageMonthly"> | Date | string
+    updatedAt?: DateTimeFilter<"UsageMonthly"> | Date | string
+  }
+
   export type UserCreateWithoutProjectsInput = {
     id?: string
     email: string
     passwordHash: string
     createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
+    usageMonthly?: UsageMonthlyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -8663,6 +13237,8 @@ export namespace Prisma {
     email: string
     passwordHash: string
     createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
+    usageMonthly?: UsageMonthlyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -8701,6 +13277,32 @@ export namespace Prisma {
 
   export type ProductCreateManyProjectInputEnvelope = {
     data: ProductCreateManyProjectInput | ProductCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CollectionPageCreateWithoutProjectInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    generation?: CollectionGenerationCreateNestedOneWithoutCollectionPageInput
+  }
+
+  export type CollectionPageUncheckedCreateWithoutProjectInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    generation?: CollectionGenerationUncheckedCreateNestedOneWithoutCollectionPageInput
+  }
+
+  export type CollectionPageCreateOrConnectWithoutProjectInput = {
+    where: CollectionPageWhereUniqueInput
+    create: XOR<CollectionPageCreateWithoutProjectInput, CollectionPageUncheckedCreateWithoutProjectInput>
+  }
+
+  export type CollectionPageCreateManyProjectInputEnvelope = {
+    data: CollectionPageCreateManyProjectInput | CollectionPageCreateManyProjectInput[]
     skipDuplicates?: boolean
   }
 
@@ -8746,6 +13348,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+    usageMonthly?: UsageMonthlyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -8753,6 +13357,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+    usageMonthly?: UsageMonthlyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutProjectInput = {
@@ -8784,6 +13390,33 @@ export namespace Prisma {
     imageAlt?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     projectId?: StringFilter<"Product"> | string
+  }
+
+  export type CollectionPageUpsertWithWhereUniqueWithoutProjectInput = {
+    where: CollectionPageWhereUniqueInput
+    update: XOR<CollectionPageUpdateWithoutProjectInput, CollectionPageUncheckedUpdateWithoutProjectInput>
+    create: XOR<CollectionPageCreateWithoutProjectInput, CollectionPageUncheckedCreateWithoutProjectInput>
+  }
+
+  export type CollectionPageUpdateWithWhereUniqueWithoutProjectInput = {
+    where: CollectionPageWhereUniqueInput
+    data: XOR<CollectionPageUpdateWithoutProjectInput, CollectionPageUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type CollectionPageUpdateManyWithWhereWithoutProjectInput = {
+    where: CollectionPageScalarWhereInput
+    data: XOR<CollectionPageUpdateManyMutationInput, CollectionPageUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type CollectionPageScalarWhereInput = {
+    AND?: CollectionPageScalarWhereInput | CollectionPageScalarWhereInput[]
+    OR?: CollectionPageScalarWhereInput[]
+    NOT?: CollectionPageScalarWhereInput | CollectionPageScalarWhereInput[]
+    id?: StringFilter<"CollectionPage"> | string
+    label?: StringFilter<"CollectionPage"> | string
+    originalDescription?: StringFilter<"CollectionPage"> | string
+    createdAt?: DateTimeFilter<"CollectionPage"> | Date | string
+    projectId?: StringFilter<"CollectionPage"> | string
   }
 
   export type JobUpsertWithWhereUniqueWithoutProjectInput = {
@@ -8819,6 +13452,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProjectsInput
+    collectionPages?: CollectionPageCreateNestedManyWithoutProjectInput
     jobs?: JobCreateNestedManyWithoutProjectInput
   }
 
@@ -8827,6 +13461,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     userId: string
+    collectionPages?: CollectionPageUncheckedCreateNestedManyWithoutProjectInput
     jobs?: JobUncheckedCreateNestedManyWithoutProjectInput
   }
 
@@ -8874,6 +13509,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProjectsNestedInput
+    collectionPages?: CollectionPageUpdateManyWithoutProjectNestedInput
     jobs?: JobUpdateManyWithoutProjectNestedInput
   }
 
@@ -8882,6 +13518,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    collectionPages?: CollectionPageUncheckedUpdateManyWithoutProjectNestedInput
     jobs?: JobUncheckedUpdateManyWithoutProjectNestedInput
   }
 
@@ -8978,12 +13615,165 @@ export namespace Prisma {
     projectId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ProjectCreateWithoutCollectionPagesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutProjectsInput
+    products?: ProductCreateNestedManyWithoutProjectInput
+    jobs?: JobCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutCollectionPagesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    userId: string
+    products?: ProductUncheckedCreateNestedManyWithoutProjectInput
+    jobs?: JobUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutCollectionPagesInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutCollectionPagesInput, ProjectUncheckedCreateWithoutCollectionPagesInput>
+  }
+
+  export type CollectionGenerationCreateWithoutCollectionPageInput = {
+    id?: string
+    optimizedTitle: string
+    optimizedDescription: string
+    seoKeywords: string
+    seoScore: number
+    createdAt?: Date | string
+  }
+
+  export type CollectionGenerationUncheckedCreateWithoutCollectionPageInput = {
+    id?: string
+    optimizedTitle: string
+    optimizedDescription: string
+    seoKeywords: string
+    seoScore: number
+    createdAt?: Date | string
+  }
+
+  export type CollectionGenerationCreateOrConnectWithoutCollectionPageInput = {
+    where: CollectionGenerationWhereUniqueInput
+    create: XOR<CollectionGenerationCreateWithoutCollectionPageInput, CollectionGenerationUncheckedCreateWithoutCollectionPageInput>
+  }
+
+  export type ProjectUpsertWithoutCollectionPagesInput = {
+    update: XOR<ProjectUpdateWithoutCollectionPagesInput, ProjectUncheckedUpdateWithoutCollectionPagesInput>
+    create: XOR<ProjectCreateWithoutCollectionPagesInput, ProjectUncheckedCreateWithoutCollectionPagesInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutCollectionPagesInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutCollectionPagesInput, ProjectUncheckedUpdateWithoutCollectionPagesInput>
+  }
+
+  export type ProjectUpdateWithoutCollectionPagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProjectsNestedInput
+    products?: ProductUpdateManyWithoutProjectNestedInput
+    jobs?: JobUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutCollectionPagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    products?: ProductUncheckedUpdateManyWithoutProjectNestedInput
+    jobs?: JobUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type CollectionGenerationUpsertWithoutCollectionPageInput = {
+    update: XOR<CollectionGenerationUpdateWithoutCollectionPageInput, CollectionGenerationUncheckedUpdateWithoutCollectionPageInput>
+    create: XOR<CollectionGenerationCreateWithoutCollectionPageInput, CollectionGenerationUncheckedCreateWithoutCollectionPageInput>
+    where?: CollectionGenerationWhereInput
+  }
+
+  export type CollectionGenerationUpdateToOneWithWhereWithoutCollectionPageInput = {
+    where?: CollectionGenerationWhereInput
+    data: XOR<CollectionGenerationUpdateWithoutCollectionPageInput, CollectionGenerationUncheckedUpdateWithoutCollectionPageInput>
+  }
+
+  export type CollectionGenerationUpdateWithoutCollectionPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    optimizedTitle?: StringFieldUpdateOperationsInput | string
+    optimizedDescription?: StringFieldUpdateOperationsInput | string
+    seoKeywords?: StringFieldUpdateOperationsInput | string
+    seoScore?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CollectionGenerationUncheckedUpdateWithoutCollectionPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    optimizedTitle?: StringFieldUpdateOperationsInput | string
+    optimizedDescription?: StringFieldUpdateOperationsInput | string
+    seoKeywords?: StringFieldUpdateOperationsInput | string
+    seoScore?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CollectionPageCreateWithoutGenerationInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    project: ProjectCreateNestedOneWithoutCollectionPagesInput
+  }
+
+  export type CollectionPageUncheckedCreateWithoutGenerationInput = {
+    id?: string
+    label: string
+    originalDescription?: string
+    createdAt?: Date | string
+    projectId: string
+  }
+
+  export type CollectionPageCreateOrConnectWithoutGenerationInput = {
+    where: CollectionPageWhereUniqueInput
+    create: XOR<CollectionPageCreateWithoutGenerationInput, CollectionPageUncheckedCreateWithoutGenerationInput>
+  }
+
+  export type CollectionPageUpsertWithoutGenerationInput = {
+    update: XOR<CollectionPageUpdateWithoutGenerationInput, CollectionPageUncheckedUpdateWithoutGenerationInput>
+    create: XOR<CollectionPageCreateWithoutGenerationInput, CollectionPageUncheckedCreateWithoutGenerationInput>
+    where?: CollectionPageWhereInput
+  }
+
+  export type CollectionPageUpdateToOneWithWhereWithoutGenerationInput = {
+    where?: CollectionPageWhereInput
+    data: XOR<CollectionPageUpdateWithoutGenerationInput, CollectionPageUncheckedUpdateWithoutGenerationInput>
+  }
+
+  export type CollectionPageUpdateWithoutGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutCollectionPagesNestedInput
+  }
+
+  export type CollectionPageUncheckedUpdateWithoutGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ProjectCreateWithoutJobsInput = {
     id?: string
     name: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProjectsInput
     products?: ProductCreateNestedManyWithoutProjectInput
+    collectionPages?: CollectionPageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutJobsInput = {
@@ -8992,6 +13782,7 @@ export namespace Prisma {
     createdAt?: Date | string
     userId: string
     products?: ProductUncheckedCreateNestedManyWithoutProjectInput
+    collectionPages?: CollectionPageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutJobsInput = {
@@ -9016,6 +13807,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProjectsNestedInput
     products?: ProductUpdateManyWithoutProjectNestedInput
+    collectionPages?: CollectionPageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutJobsInput = {
@@ -9024,6 +13816,59 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     products?: ProductUncheckedUpdateManyWithoutProjectNestedInput
+    collectionPages?: CollectionPageUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type UserCreateWithoutUsageMonthlyInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
+    projects?: ProjectCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUsageMonthlyInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    createdAt?: Date | string
+    plan?: $Enums.SubscriptionPlan
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUsageMonthlyInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUsageMonthlyInput, UserUncheckedCreateWithoutUsageMonthlyInput>
+  }
+
+  export type UserUpsertWithoutUsageMonthlyInput = {
+    update: XOR<UserUpdateWithoutUsageMonthlyInput, UserUncheckedUpdateWithoutUsageMonthlyInput>
+    create: XOR<UserCreateWithoutUsageMonthlyInput, UserUncheckedCreateWithoutUsageMonthlyInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUsageMonthlyInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUsageMonthlyInput, UserUncheckedUpdateWithoutUsageMonthlyInput>
+  }
+
+  export type UserUpdateWithoutUsageMonthlyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUsageMonthlyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectCreateManyUserInput = {
@@ -9032,11 +13877,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type UsageMonthlyCreateManyUserInput = {
+    id?: string
+    monthKey: string
+    optimizedProducts?: number
+    estimatedCostCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ProjectUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUpdateManyWithoutProjectNestedInput
+    collectionPages?: CollectionPageUpdateManyWithoutProjectNestedInput
     jobs?: JobUpdateManyWithoutProjectNestedInput
   }
 
@@ -9045,6 +13900,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutProjectNestedInput
+    collectionPages?: CollectionPageUncheckedUpdateManyWithoutProjectNestedInput
     jobs?: JobUncheckedUpdateManyWithoutProjectNestedInput
   }
 
@@ -9052,6 +13908,33 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsageMonthlyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsageMonthlyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsageMonthlyUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monthKey?: StringFieldUpdateOperationsInput | string
+    optimizedProducts?: IntFieldUpdateOperationsInput | number
+    estimatedCostCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateManyProjectInput = {
@@ -9062,6 +13945,13 @@ export namespace Prisma {
     attributes?: JsonNullValueInput | InputJsonValue
     imageUrl?: string | null
     imageAlt?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CollectionPageCreateManyProjectInput = {
+    id?: string
+    label: string
+    originalDescription?: string
     createdAt?: Date | string
   }
 
@@ -9105,6 +13995,29 @@ export namespace Prisma {
     attributes?: JsonNullValueInput | InputJsonValue
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CollectionPageUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    generation?: CollectionGenerationUpdateOneWithoutCollectionPageNestedInput
+  }
+
+  export type CollectionPageUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    generation?: CollectionGenerationUncheckedUpdateOneWithoutCollectionPageNestedInput
+  }
+
+  export type CollectionPageUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    originalDescription?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
