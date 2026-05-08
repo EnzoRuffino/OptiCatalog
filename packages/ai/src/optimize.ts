@@ -1,5 +1,5 @@
-import OpenAI from 'openai';
 import { buildOptimizedDraft } from './draft';
+import { createOpenAiClient } from './openaiClient';
 
 export type OptimizeProductInput = { title: string; description: string };
 
@@ -21,14 +21,15 @@ seoScore (integer 0-100 estimating SEO quality).`;
  */
 export async function optimizeProduct(
   input: OptimizeProductInput,
-  options?: { openaiApiKey?: string; model?: string },
+  options?: { openaiApiKey?: string; model?: string; baseURL?: string },
 ): Promise<OptimizeProductResult> {
-  const key = options?.openaiApiKey?.trim();
-  if (!key) {
+  const client = createOpenAiClient({
+    openaiApiKey: options?.openaiApiKey,
+    baseURL: options?.baseURL,
+  });
+  if (!client) {
     return buildOptimizedDraft({ title: input.title, description: input.description });
   }
-
-  const client = new OpenAI({ apiKey: key });
   const model = options?.model ?? 'gpt-4o-mini';
   const payload = JSON.stringify({
     title: input.title,

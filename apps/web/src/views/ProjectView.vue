@@ -1,9 +1,26 @@
 <script setup lang="ts">
 import type { CollectionPage, Product as CatalogProduct } from '@opticatalog/types';
-import { computed, onMounted, ref } from 'vue';
+import axios from 'axios';
+import { computed, onMounted, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { api } from '../api/client';
 import { useSeo } from '../composables/useSeo';
+
+type ProductCsvColumnMapping = {
+  title: string;
+  description: string;
+  price: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  attributes?: string;
+};
+
+type CsvPreviewResponse = {
+  delimiter: ',' | ';';
+  columns: { key: string; label: string }[];
+  sampleRows: Record<string, string>[];
+  suggestedMapping: Partial<ProductCsvColumnMapping>;
+};
 
 type ProductRow = CatalogProduct & {
   generation?: {
@@ -31,6 +48,12 @@ const loading = ref(true);
 const error = ref<string | null>(null);
 const uploading = ref(false);
 
+/** Titre page : évite « Chargement… » figé quand le chargement a échoué. */
+const projectPageTitle = computed(() => {
+  if (loading.value) return 'Chargement…';
+  return projectName.value.trim() || 'Projet';
+});
+
 const form = ref({
   originalTitle: '',
   originalDescription: '',
@@ -42,11 +65,21 @@ const collectionForm = ref({
   originalDescription: '',
 });
 
+const csvImportMode = ref<'quick' | 'custom'>('quick');
 const csvFile = ref<File | null>(null);
+const csvPreview = ref<CsvPreviewResponse | null>(null);
+const csvPreviewLoading = ref(false);
+const mapTitle = ref('');
+const mapDescription = ref('');
+const mapPrice = ref('');
+const mapImageUrl = ref('');
+const mapImageAlt = ref('');
+const mapAttributes = ref('');
 
 useSeo(
-  () => `${projectName.value || 'Projet'} | catalog-ai`,
-  () => `Import CSV, optimisation IA et export SEO pour le projet ${projectName.value || 'catalog-ai'}.`,
+  () => `${projectPageTitle.value === 'Chargement…' ? 'Projet' : projectPageTitle.value} | catalog-ai`,
+  () =>
+    `Import CSV, optimisation IA et export SEO pour le projet ${projectName.value.trim() || 'catalog-ai'}.`,
 );
 
 async function load() {
@@ -61,8 +94,11 @@ async function load() {
     projectName.value = (projRes.data as { name: string }).name;
     products.value = prodRes.data;
     collections.value = collRes.data;
-  } catch {
-    error.value = 'Projet introuvable ou accès refusé.';
+  } catch (e: unknown) {
+    const detail = extractApiError(e);
+    error.value =
+      detail ||
+      'Impossible de charger le projet. Vérifie la connexion, que `npm run dev:api` tourne, ou reconnecte-toi.';
   } finally {
     loading.value = false;
   }
@@ -99,32 +135,182 @@ async function addProduct() {
   }
 }
 
-function onCsvChange(event: Event) {
+function extractApiError(e: unknown): string {
+  const ax = e as {
+    response?: { status?: number; data?: { message?: string | string[] } };
+    message?: string;
+    code?: string;
+  };
+  const msg = ax.response?.data?.message;
+  if (Array.isArray(msg)) return msg.join(', ');
+  if (typeof msg === 'string' && msg.trim()) return msg.trim();
+
+  const status = ax.response?.status;
+  if (status === 401) {
+    return 'Non autorisé : reconnecte-toi (session expirée ou token invalide).';
+  }
+  if (status === 403) return 'Accès refusé à cette ressource.';
+  if (status === 404) return 'Projet ou ressource introuvable.';
+  if (typeof status === 'number') return `Erreur serveur (HTTP ${status}).`;
+
+  if (ax.code === 'ERR_NETWORK' || ax.message === 'Network Error') {
+    return 'Impossible de joindre l’API (port 3000). Lance `npm run dev:api` ou vérifie le proxy Vite.';
+  }
+  return '';
+}
+
+async function messageFromBlobBody(data: Blob): Promise<string | null> {
+  try {
+    const text = await data.text();
+    const j = JSON.parse(text) as { message?: string | string[] };
+    const m = j.message;
+    if (Array.isArray(m)) return m.join(', ');
+    if (typeof m === 'string' && m.trim()) return m.trim();
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
+
+function applySuggestedMapping(s: Partial<ProductCsvColumnMapping>) {
+  mapTitle.value = s.title ?? '';
+  mapDescription.value = s.description ?? '';
+  mapPrice.value = s.price ?? '';
+  mapImageUrl.value = s.imageUrl ?? '';
+  mapImageAlt.value = s.imageAlt ?? '';
+  mapAttributes.value = s.attributes ?? '';
+}
+
+function resetCsvMapping() {
+  applySuggestedMapping({});
+}
+
+async function runCsvPreview() {
+  if (!csvFile.value) return;
+  csvPreviewLoading.value = true;
+  error.value = null;
+  try {
+    const fd = new FormData();
+    fd.append('file', csvFile.value);
+    const res = await api.post<CsvPreviewResponse>(
+      `/projects/${projectId.value}/uploads/csv/preview`,
+      fd,
+      { headers: { 'Content-Type': 'multipart/form-data' } },
+    );
+    csvPreview.value = res.data;
+    applySuggestedMapping(res.data.suggestedMapping ?? {});
+  } catch (e: unknown) {
+    const detail = extractApiError(e);
+    error.value =
+      detail || "Impossible d'analyser le CSV. Vérifie le fichier ou réessaie.";
+    csvPreview.value = null;
+    resetCsvMapping();
+  } finally {
+    csvPreviewLoading.value = false;
+  }
+}
+
+async function onCsvChange(event: Event) {
   const target = event.target as HTMLInputElement;
   csvFile.value = target.files?.[0] ?? null;
+  csvPreview.value = null;
+  resetCsvMapping();
+  if (csvImportMode.value === 'custom' && csvFile.value) {
+    await runCsvPreview();
+  }
+}
+
+watch(csvImportMode, async (mode) => {
+  if (mode === 'custom' && csvFile.value) {
+    await runCsvPreview();
+  }
+  if (mode === 'quick') {
+    csvPreview.value = null;
+    resetCsvMapping();
+  }
+});
+
+async function downloadImportTemplate() {
+  error.value = null;
+  try {
+    const res = await api.get(`/projects/${projectId.value}/uploads/csv/template`, {
+      responseType: 'blob',
+    });
+    const url = URL.createObjectURL(res.data as Blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'opticatalog-products-import.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch {
+    error.value = 'Téléchargement du modèle impossible.';
+  }
 }
 
 async function uploadCsv() {
   if (!csvFile.value) return;
+  if (csvImportMode.value === 'custom') {
+    if (!mapTitle.value.trim() || !mapDescription.value.trim() || !mapPrice.value.trim()) {
+      error.value = 'Choisis les colonnes titre, description et prix.';
+      return;
+    }
+  }
   uploading.value = true;
   error.value = null;
   try {
     const formData = new FormData();
     formData.append('file', csvFile.value);
+    if (csvImportMode.value === 'custom') {
+      const mapping: ProductCsvColumnMapping = {
+        title: mapTitle.value.trim(),
+        description: mapDescription.value.trim(),
+        price: mapPrice.value.trim(),
+      };
+      const imgUrl = mapImageUrl.value.trim();
+      const imgAlt = mapImageAlt.value.trim();
+      const attrs = mapAttributes.value.trim();
+      if (imgUrl) mapping.imageUrl = imgUrl;
+      if (imgAlt) mapping.imageAlt = imgAlt;
+      if (attrs) mapping.attributes = attrs;
+      formData.append('mapping', JSON.stringify(mapping));
+    }
     await api.post(`/projects/${projectId.value}/uploads/csv`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     csvFile.value = null;
+    csvPreview.value = null;
+    resetCsvMapping();
     await load();
-  } catch {
-    error.value = "Import CSV impossible. Vérifie les colonnes title/description/price.";
+  } catch (e: unknown) {
+    const detail = extractApiError(e);
+    error.value =
+      detail ||
+      "Import CSV impossible. Mode rapide : colonnes title/description/price. Sinon utilise le mode colonnes libres.";
   } finally {
     uploading.value = false;
   }
 }
 
-function exportCsv() {
-  window.open(`/api/projects/${projectId.value}/products/export/csv`, '_blank');
+async function exportCsv() {
+  error.value = null;
+  try {
+    const res = await api.get(`/projects/${projectId.value}/products/export/csv`, {
+      responseType: 'blob',
+    });
+    const blob = res.data as Blob;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `catalog-${projectId.value}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (e: unknown) {
+    let msg = extractApiError(e);
+    if (!msg && axios.isAxiosError(e) && e.response?.data instanceof Blob) {
+      msg = (await messageFromBlobBody(e.response.data)) ?? '';
+    }
+    error.value = msg || 'Export CSV impossible.';
+  }
 }
 
 onMounted(load);
@@ -143,7 +329,7 @@ onMounted(load);
       <header class="max-w-3xl space-y-3">
         <p class="oc-label">Catalogue · SEO e-commerce</p>
         <h1 class="font-display text-display-sm font-semibold text-wood-900 md:text-display">
-          {{ projectName || 'Chargement…' }}
+          {{ projectPageTitle }}
         </h1>
         <p class="text-lg text-wood-600">
           Fiches produit, pages catégorie / collection, import CSV et export.
@@ -161,9 +347,34 @@ onMounted(load);
     <section class="oc-card-solid p-8 md:p-10">
       <h2 class="oc-label">Import & export CSV</h2>
       <p class="mt-3 max-w-2xl text-wood-600">
-        Importe un fichier structuré ou récupère l’ensemble des produits avec les champs optimisés.
+        Mode rapide avec le modèle OptiCatalog, ou colonnes libres après analyse du fichier et choix du mapping.
       </p>
-      <div class="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6">
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <button type="button" class="oc-btn-secondary !py-2 !text-sm" @click="downloadImportTemplate">
+          Télécharger le modèle CSV
+        </button>
+      </div>
+
+      <fieldset class="mt-8 space-y-3">
+        <legend class="text-sm font-medium text-wood-800">Mode d’import</legend>
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <label
+            class="flex cursor-pointer items-center gap-2 rounded-xl border border-wood-200/90 bg-white/80 px-4 py-3 text-sm text-wood-700 shadow-sm transition hover:border-clay-300/80"
+          >
+            <input v-model="csvImportMode" type="radio" value="quick" class="accent-clay-600" />
+            <span><strong class="text-wood-900">Rapide</strong> — fichier déjà au format OptiCatalog</span>
+          </label>
+          <label
+            class="flex cursor-pointer items-center gap-2 rounded-xl border border-wood-200/90 bg-white/80 px-4 py-3 text-sm text-wood-700 shadow-sm transition hover:border-clay-300/80"
+          >
+            <input v-model="csvImportMode" type="radio" value="custom" class="accent-clay-600" />
+            <span><strong class="text-wood-900">Colonnes libres</strong> — aperçu puis association des colonnes</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="mt-8 flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-6">
         <label
           class="flex cursor-pointer items-center justify-center rounded-2xl border border-dashed border-wood-300 bg-wood-50/80 px-6 py-8 text-center text-sm text-wood-600 transition hover:border-clay-400/60 hover:bg-white/80 lg:min-w-[14rem] lg:flex-1"
         >
@@ -175,26 +386,139 @@ onMounted(load);
           <button
             type="button"
             class="oc-btn-primary"
-            :disabled="!csvFile || uploading"
+            :disabled="
+              !csvFile ||
+              uploading ||
+              csvPreviewLoading ||
+              (csvImportMode === 'custom' && !csvPreview?.columns?.length)
+            "
             @click="uploadCsv"
           >
             {{ uploading ? 'Import…' : 'Importer' }}
           </button>
           <button type="button" class="oc-btn-secondary" @click="exportCsv">Exporter (optimisé)</button>
+          <button
+            v-if="csvImportMode === 'custom' && csvFile"
+            type="button"
+            class="oc-btn-secondary"
+            :disabled="csvPreviewLoading"
+            @click="runCsvPreview"
+          >
+            {{ csvPreviewLoading ? 'Analyse…' : 'Ré-analyser' }}
+          </button>
         </div>
       </div>
+
+      <div
+        v-if="csvImportMode === 'custom' && csvPreview && csvPreview.columns.length"
+        class="mt-8 space-y-6 rounded-2xl border border-wood-200/90 bg-wood-25/60 p-6"
+      >
+        <div>
+          <p class="text-sm font-medium text-wood-800">Associer les colonnes</p>
+          <p class="mt-1 text-xs text-wood-500">
+            Les valeurs affichées sont les identifiants techniques ; choisis la colonne qui correspond à chaque champ.
+          </p>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <label class="text-xs font-medium text-wood-700">Titre</label>
+              <select v-model="mapTitle" class="oc-input mt-1 w-full text-sm">
+                <option value="">—</option>
+                <option v-for="c in csvPreview.columns" :key="`t-${c.key}`" :value="c.key">
+                  {{ c.label }} ({{ c.key }})
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-wood-700">Description</label>
+              <select v-model="mapDescription" class="oc-input mt-1 w-full text-sm">
+                <option value="">—</option>
+                <option v-for="c in csvPreview.columns" :key="`d-${c.key}`" :value="c.key">
+                  {{ c.label }} ({{ c.key }})
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-wood-700">Prix</label>
+              <select v-model="mapPrice" class="oc-input mt-1 w-full text-sm">
+                <option value="">—</option>
+                <option v-for="c in csvPreview.columns" :key="`p-${c.key}`" :value="c.key">
+                  {{ c.label }} ({{ c.key }})
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-wood-700">Image URL (optionnel)</label>
+              <select v-model="mapImageUrl" class="oc-input mt-1 w-full text-sm">
+                <option value="">—</option>
+                <option v-for="c in csvPreview.columns" :key="`iu-${c.key}`" :value="c.key">
+                  {{ c.label }} ({{ c.key }})
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-wood-700">Texte alt image (optionnel)</label>
+              <select v-model="mapImageAlt" class="oc-input mt-1 w-full text-sm">
+                <option value="">—</option>
+                <option v-for="c in csvPreview.columns" :key="`ia-${c.key}`" :value="c.key">
+                  {{ c.label }} ({{ c.key }})
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-medium text-wood-700">Attributes JSON (optionnel)</label>
+              <select v-model="mapAttributes" class="oc-input mt-1 w-full text-sm">
+                <option value="">—</option>
+                <option v-for="c in csvPreview.columns" :key="`at-${c.key}`" :value="c.key">
+                  {{ c.label }} ({{ c.key }})
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="csvPreview.sampleRows.length" class="overflow-x-auto">
+          <p class="mb-2 text-xs font-medium text-wood-600">Aperçu ({{ csvPreview.sampleRows.length }} lignes)</p>
+          <table class="min-w-full divide-y divide-wood-200 text-left text-xs text-wood-800">
+            <thead class="bg-white/90">
+              <tr>
+                <th
+                  v-for="col in csvPreview.columns"
+                  :key="col.key"
+                  class="whitespace-nowrap px-3 py-2 font-medium"
+                >
+                  {{ col.label }}
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-wood-100">
+              <tr v-for="(row, ri) in csvPreview.sampleRows" :key="ri">
+                <td v-for="col in csvPreview.columns" :key="col.key" class="max-w-[12rem] truncate px-3 py-2">
+                  {{ row[col.key] ?? '' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <p class="mt-6 text-xs leading-relaxed text-wood-500">
-        Colonnes attendues :
-        <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">title</code>
-        ou
-        <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">originalTitle</code>
-        ,
-        <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">description</code>
-        ou
-        <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">originalDescription</code>
-        ,
-        <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">price</code>
-        .
+        <template v-if="csvImportMode === 'quick'">
+          Colonnes attendues :
+          <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">title</code>
+          ou
+          <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">originalTitle</code>
+          ,
+          <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">description</code>
+          ou
+          <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">originalDescription</code>
+          ,
+          <code class="rounded bg-wood-100 px-1.5 py-0.5 text-wood-700">price</code>
+          ; optionnellement imageUrl, imageAlt, attributes (JSON objet).
+        </template>
+        <template v-else>
+          Après analyse, associe au minimum titre, description et prix. La suggestion pré-remplit les listes quand les
+          en-têtes sont reconnaissables (nom, prix, etc.).
+        </template>
       </p>
     </section>
 

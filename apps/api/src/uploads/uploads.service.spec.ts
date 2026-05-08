@@ -23,6 +23,39 @@ describe('UploadsService', () => {
     });
   });
 
+  it('imports with explicit column mapping', async () => {
+    const prisma = {
+      product: { createMany: jest.fn().mockResolvedValue({ count: 1 }) },
+    } as any;
+    const projects = {
+      getByIdForUser: jest.fn().mockResolvedValue({ id: 'p1', userId: 'u1' }),
+    } as any;
+
+    const service = new UploadsService(prisma, projects);
+
+    const csv = ['Nom,Desc,Prix', 'Produit A,Description A,12.5'].join('\n');
+    const mapping = { title: 'nom', description: 'desc', price: 'prix' };
+
+    await expect(service.importProductsFromCsv('p1', 'u1', csv, mapping)).resolves.toEqual({
+      created: 1,
+    });
+  });
+
+  it('throws BadRequestException when mapping column missing', async () => {
+    const prisma = { product: { createMany: jest.fn() } } as any;
+    const projects = {
+      getByIdForUser: jest.fn().mockResolvedValue({ id: 'p1', userId: 'u1' }),
+    } as any;
+    const service = new UploadsService(prisma, projects);
+
+    const csv = ['title,description,price', 'A,B,1'].join('\n');
+    const mapping = { title: 'title', description: 'description', price: 'wrong' };
+
+    await expect(service.importProductsFromCsv('p1', 'u1', csv, mapping)).rejects.toBeInstanceOf(
+      BadRequestException,
+    );
+  });
+
   it('throws BadRequestException on invalid csv', async () => {
     const prisma = { product: { createMany: jest.fn() } } as any;
     const projects = {

@@ -1,5 +1,5 @@
-import OpenAI from 'openai';
 import { buildCollectionDraft } from './draft';
+import { createOpenAiClient } from './openaiClient';
 
 export type OptimizeCollectionInput = { label: string; description: string };
 
@@ -19,14 +19,15 @@ seoScore (integer 0-100 estimating SEO quality for a category/collection page).`
 
 export async function optimizeCollectionPage(
   input: OptimizeCollectionInput,
-  options?: { openaiApiKey?: string; model?: string },
+  options?: { openaiApiKey?: string; model?: string; baseURL?: string },
 ): Promise<OptimizeCollectionResult> {
-  const key = options?.openaiApiKey?.trim();
-  if (!key) {
+  const client = createOpenAiClient({
+    openaiApiKey: options?.openaiApiKey,
+    baseURL: options?.baseURL,
+  });
+  if (!client) {
     return buildCollectionDraft({ label: input.label, description: input.description });
   }
-
-  const client = new OpenAI({ apiKey: key });
   const model = options?.model ?? 'gpt-4o-mini';
   const payload = JSON.stringify({
     label: input.label,
